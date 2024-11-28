@@ -1036,7 +1036,12 @@
                     <li><a class="dropdown-item" href="../../dashboard/app/user-profile.html">Profile</a></li>
                     <li><a class="dropdown-item" href="../../dashboard/app/user-privacy-setting.html">Privacy Setting</a></li>
                     <li><hr class="dropdown-divider"></li>
-                    <li><a class="dropdown-item" href="../../dashboard/auth/sign-in.html">Logout</a></li>
+                    <li>
+                        <form action="{{ route('logout') }}" method="POST">
+                            @csrf
+                            <button type="submit" class="dropdown-item" style="border: none; background: transparent; width: 100%; text-align: left;">Logout</button>
+                        </form>
+                    </li>
                   </ul>
                 </li>
               </ul>
