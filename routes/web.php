@@ -8,7 +8,7 @@ Route::get('/', function () {
 });
 
 Route::get('/dashboard', function () {
-    return view('layouts.app');
+    return view('layouts.tasklist');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
