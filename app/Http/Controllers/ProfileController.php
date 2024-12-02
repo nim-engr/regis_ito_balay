@@ -65,4 +65,5 @@ class ProfileController extends Controller
 
         return redirect('/login'); // Redirect the user to the login page (or another page)
     }
+
 }

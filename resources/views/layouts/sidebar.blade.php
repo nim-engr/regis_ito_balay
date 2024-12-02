@@ -166,7 +166,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link active" href="../../dashboard/special-pages/kanban.html">
+                <a class="nav-link active" href="{{ route('tasklist') }}">
                    <i class="icon">
                         <svg class="icon-10" xmlns="http://www.w3.org/2000/svg" width="10" viewBox="0 0 24 24" fill="currentColor">
                             <g>
@@ -174,7 +174,7 @@
                             </g>
                         </svg>
                     </i>
-                   <i class="sidenav-mini-icon"> K </i>
+                   <i class="sidenav-mini-icon"> T </i>
                    <span class="item-name">Task List</span>
                 </a>
             </li>
