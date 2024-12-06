@@ -30,7 +30,7 @@
             <div class="form-group">
                 <label class="form-label" for="exampleFormControlSelect1">Responsible Person</label>
                 <select class="form-select" name="name" id="name" id="Resp_person">
-                <option selected="" disabled="">Assign to</option>
+                <option selected="" disabled="">Assign to   </option>
                 <option value="1">Britt Montalvo</option>
                 <option value= "2">user 1</option>
                 <option value="3">user 2</option>

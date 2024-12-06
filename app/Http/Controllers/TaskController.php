@@ -11,7 +11,8 @@ class TaskController extends Controller
     /**
      * Save a new task
      */
-    public function task_save(Request $request)
+
+     public function task_save(Request $request)
     {
         // Validation rules
         $validator = Validator::make($request->all(), [
@@ -85,7 +86,44 @@ class TaskController extends Controller
      */
     public function tasklist()
     {
-        $tasks = Task::all(); // Fetch all tasks from the database
-        return view('layouts.tasklist', compact('tasks'));
+        $tasks = task::where('status', 'open')  ->get();
+        $task_Active = $tasks->count(); // Fetch all tasks from the database
+        $progress = task::where('status', 'progress')  ->get();
+        $progress_Active = $progress->count(); // Fetch all tasks from the database
+        $review = task::where('status', 'review')  ->get();
+        $review_Active = $review->count(); // Fetch all tasks from the database
+        $close = task::where('status', 'close')  ->get();
+        $close_Active = $close->count(); // Fetch all tasks from the database
+        return view('layouts.tasklist', compact('tasks', 'task_Active','progress', 'progress_Active','review', 'review_Active','close', 'close_Active'   ));
     }
+
+    public function edit($id)
+    {
+        $task = Task::findOrFail($id); // Find the task by ID or throw a 404 error
+        return view('layouts.tasksedit', compact('task')); // Return the edit view with task data
+    }
+
+    public function update(Request $request, $id)
+    {
+        $request->validate([
+            'Task_title' => 'required|string|max:255',
+            'Task_desc' => 'required|string',
+            'name' => 'required|string|max:255',
+            'Deadline' => 'required|date',
+            'urgent' => 'nullable|boolean',
+        ]);
+
+        $task = Task::findOrFail($id); // Find the task by ID or throw 404
+        $task->Task_title = $request->Task_title;
+        $task->Task_desc = $request->Task_desc;
+        $task->name = $request->name;
+        $task->Deadline = $request->Deadline;
+        $task->urgent = $request->boolean('urgent'); // Convert checkbox to boolean
+        $task->save(); // Save changes
+
+        return redirect()->route('tasklist')->with('success', 'Task updated successfully!');
+    }
+
+
+
 }
