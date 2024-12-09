@@ -30,12 +30,13 @@
             <div class="form-group">
                 <label class="form-label" for="exampleFormControlSelect1">Responsible Person</label>
                 <select class="form-select" name="name" id="name" id="Resp_person">
-                <option selected="" disabled="">Assign to   </option>
-                <option value="1">Britt Montalvo</option>
-                <option value= "2">user 1</option>
-                <option value="3">user 2</option>
-                <option value="4">user 3</option>
-                <option value="5">user 4</option>
+                    @foreach ($users as $user)
+                    <option value="{{ $user->id }}" {{ old('id', $user->name) === $user->name ? 'selected' : '' }}>
+                        {{ $user->name }}
+                    </option>
+                    @endforeach
+                    <option selected="Unassigned" value="" >Unassigned</option>
+
                 </select>
                 @error('name')
                     <div class="text-danger">{{ $message }}</div>
@@ -67,7 +68,7 @@
             </div>
 
             <button type="submit" class="btn btn-primary">Submit</button>
-            <button type="submit" class="btn btn-danger">Cancel</button>
+            <button type="button" class="btn btn-danger" onclick="window.history.back()">Cancel</button>
         </div>
     </form>
 </div>

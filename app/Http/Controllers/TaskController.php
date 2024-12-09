@@ -3,7 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Task; // Assuming you have a `Task` model
+use App\Models\Task;
+use App\Models\User; // Assuming you have a `Task` model
 use Illuminate\Support\Facades\Validator;
 
 class TaskController extends Controller
@@ -18,7 +19,7 @@ class TaskController extends Controller
         $validator = Validator::make($request->all(), [
             'Task_title' => 'required|string|max:255',
             'Task_desc'  => 'required|string',
-            'name'       => 'required|string|max:255',
+            'name'       => 'nullable|string|max:255',
             'file'       => 'nullable|file', // Optional file upload
             'Deadline'   => 'required|date',
             'urgent'     => 'required|boolean',
@@ -78,7 +79,8 @@ class TaskController extends Controller
      */
     public function add_task()
     {
-        return view('layouts.add_task');
+        $users = User::all();
+        return view('layouts.add_task', compact('users'));
     }
 
     /**
@@ -86,6 +88,20 @@ class TaskController extends Controller
      */
     public function tasklist()
     {
+        // Fetch all tasks
+        $taskData = Task::all();
+
+        // Fetch all users, indexed by their IDs for quick lookup
+        $users = User::all()->keyBy('id');
+
+        // Map over tasks and add `user_name` dynamically
+        $taskData = $taskData->map(function ($task) use ($users) {
+            // Dynamically set the user_name property based on the user's ID
+            $task->user_name = $users->get($task->name)->name ?? 'Unassigned';
+            return $task;
+        });
+
+        // Count tasks by status
         $tasks = task::where('status', 'open')  ->get();
         $task_Active = $tasks->count(); // Fetch all tasks from the database
         $progress = task::where('status', 'progress')  ->get();
@@ -94,13 +110,14 @@ class TaskController extends Controller
         $review_Active = $review->count(); // Fetch all tasks from the database
         $close = task::where('status', 'close')  ->get();
         $close_Active = $close->count(); // Fetch all tasks from the database
-        return view('layouts.tasklist', compact('tasks', 'task_Active','progress', 'progress_Active','review', 'review_Active','close', 'close_Active'   ));
-    }
 
-    public function edit($id)
+        // Pass data to the view
+        return view('layouts.tasklist', compact('tasks', 'task_Active', 'progress_Active', 'review_Active', 'close_Active', 'users', 'taskData', 'progress','review','close'));
+    }    public function edit($id)
     {
         $task = Task::findOrFail($id); // Find the task by ID or throw a 404 error
-        return view('layouts.tasksedit', compact('task')); // Return the edit view with task data
+        $users = User::all();
+        return view('layouts.edit', compact('task',  'users')); // Return the edit view with task data
     }
 
     public function update(Request $request, $id)

@@ -163,14 +163,14 @@
                                                     </span>
                                                     <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton{{ $task->id }}">
                                                         <a class="dropdown-item" href="#" onclick="duplicateTask({{ $task->id }})">Duplicate</a>
-                                                        <a class="dropdown-item" href="#" onclick="renameTask({{ $task->id }})">Edit</a>
+                                                        <a class="dropdown-item" href="{{ route('tasks.edit', ['id' => $task->id]) }}">Edit</a>
                                                         <a class="dropdown-item" href="#" onclick="deleteTask({{ $task->id }})">Delete</a>
                                                     </div>
                                                 </div>
                                             </div>
                                             <h6 class="mb-3" id="task-desc-{{ $task->id }}">{{ $task->Task_desc }}</h6>
                                             <div class="d-flex align-items-center mb-3">
-                                                <p class="mb-0"><strong>Assigned to:</strong> <span id="task-assigned-{{ $task->id }}">{{ $task->name }}</span></p>
+                                                <p class="mb-0"><strong>Assigned to:</strong> <span id="task-assigned-{{ $task->id }}">{{ $task->user_name }}</span></p>
                                             </div>
                                             <div class="d-flex align-items-center mb-3">
                                                 <p class="mb-0"><strong>Urgent:</strong> <span id="task-urgent-{{ $task->id }}">{{ $task->urgent ? 'Yes' : 'No' }}</span></p>
@@ -184,6 +184,7 @@
                                 </div>
                             </div>
                         @endforeach
+
                     </div>
 
                 </div>
