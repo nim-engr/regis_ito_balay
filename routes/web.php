@@ -22,6 +22,7 @@ Route::get('/tasklist', [TaskController::class,'tasklist'])->name('tasklist');
 Route::post('/task_save', [TaskController::class,'task_save'])->name('task_save');
 Route::get('/tasks/{id}/edit', [TaskController::class, 'edit'])->name('tasks.edit');
 Route::put('/tasks/{id}', [TaskController::class, 'update'])->name('tasks.update');
+Route::post('/tasks/{id}/take', [TaskController::class, 'takeTask'])->name('tasks.take');
 
 
 

@@ -14,7 +14,11 @@ class task extends Model
 
     public function user()
     {
-     return $this->belongsTo(User::class, 'user_id');
+        return $this->belongsTo(User::class, 'name', 'id'); // 'name' in tasks refers to 'id' in users
+    }
+    public function tasks()
+    {
+        return $this->hasMany(Task::class, 'name', 'id'); // 'name' in tasks refers to 'id' in users
     }
 }
 

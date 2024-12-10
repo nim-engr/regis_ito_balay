@@ -29,24 +29,22 @@
                             @enderror
                         </div>
 
-                        <div class="form-group">
-                            <label class="form-label" for="exampleFormControlSelect1">Responsible Person</label>
-                            <div class="form-group mb-3">
-                                <label for="name" class="form-label">Assigned To</label>
-                                <select class="form-select" name="name" id="name" required>
-                                    <!-- Option to set the value to NULL -->
-                                    <option value="" {{ is_null($task->user_id) ? 'selected' : '' }}>Unassigned</option>
-                                    <!-- Loop through all users to display their names -->
+                        <div>
+                            <div class="form-group">
+                                <label class="form-label" for="name">Responsible Person</label>
+                                <select class="form-select" name="name" id="name">
+                                    <!-- Default "Unassigned" option -->
+                                    <option value="" {{ $task->name === null ? 'selected' : '' }}>Unassigned</option>
+
+                                    <!-- Loop through all users -->
                                     @foreach ($users as $user)
-                                        <option value="{{ $user->id }}" {{ old('user_id', $task->user_id) == $user->id ? 'selected' : '' }}>
+                                        <option value="{{ $user->id }}" {{ $task->name == $user->id ? 'selected' : '' }}>
                                             {{ $user->name }}
                                         </option>
                                     @endforeach
                                 </select>
                             </div>
-
-
-                            @error('name')
+                            @error('user_id')
                                 <div class="text-danger">{{ $message }}</div>
                             @enderror
                         </div>

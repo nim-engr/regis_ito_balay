@@ -138,52 +138,62 @@
                             <h5>Open Task <strong>({{ $task_Active }})</strong></h5>
                         </div>
 
-                        @foreach ($tasks as $task)
-                            <div class="group" id="group{{ $task->id }}">
-                                <div class="col-lg-12 group__item">
-                                    <div class="card" id="task-card-{{ $task->id }}">
-                                        <div class="card-body">
-                                            <div class="d-grid grid-flow-col align-items-center justify-content-between mb-2">
-                                                <div class="d-flex align-items-center">
-                                                    <p class="mb-0">Task Details</p>
-                                                    <svg class="icon-20" width="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                        <path d="M8.5 5L15.5 12L8.5 19" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                        @foreach ($tasksGrouped->get('open', collect()) as $task)
+                        <div class="group" id="group{{ $task->id }}">
+                            <div class="col-lg-12 group__item">
+                                <div class="card" id="task-card-{{ $task->id }}">
+                                    <div class="card-body">
+                                        <div class="d-grid grid-flow-col align-items-center justify-content-between mb-2">
+                                            <div class="d-flex align-items-center">
+                                                <p class="mb-0">Task Details</p>
+                                                <svg class="icon-20" width="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <path d="M8.5 5L15.5 12L8.5 19" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                                                </svg>
+                                                <p class="mb-0" id="task-title-{{ $task->id }}">{{ $task->Task_title }}</p>
+                                            </div>
+                                            <div class="dropdown">
+                                                <span class="h5" id="dropdownMenuButton{{ $task->id }}" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                                    <svg class="icon-24" xmlns="http://www.w3.org/2000/svg" width="24" viewBox="0 0 24 24" fill="none">
+                                                        <g>
+                                                            <circle cx="7" cy="12" r="1" fill="black"/>
+                                                            <circle cx="12" cy="12" r="1" fill="black"/>
+                                                            <circle cx="17" cy="12" r="1" fill="black"/>
+                                                        </g>
                                                     </svg>
-                                                    <p class="mb-0" id="task-title-{{ $task->id }}">{{ $task->Task_title }}</p>
+                                                </span>
+                                                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton{{ $task->id }}">
+                                                    <a class="dropdown-item" href="#" onclick="duplicateTask({{ $task->id }})">Duplicate</a>
+                                                    <a class="dropdown-item" href="{{ route('tasks.edit', ['id' => $task->id]) }}">Edit</a>
+                                                    <a class="dropdown-item" href="#" onclick="deleteTask({{ $task->id }})">Delete</a>
                                                 </div>
-                                                <div class="dropdown">
-                                                    <span class="h5" id="dropdownMenuButton{{ $task->id }}" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                                        <svg class="icon-24" xmlns="http://www.w3.org/2000/svg" width="24" viewBox="0 0 24 24" fill="none">
-                                                            <g>
-                                                                <circle cx="7" cy="12" r="1" fill="black"/>
-                                                                <circle cx="12" cy="12" r="1" fill="black"/>
-                                                                <circle cx="17" cy="12" r="1" fill="black"/>
-                                                            </g>
-                                                        </svg>
-                                                    </span>
-                                                    <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton{{ $task->id }}">
-                                                        <a class="dropdown-item" href="#" onclick="duplicateTask({{ $task->id }})">Duplicate</a>
-                                                        <a class="dropdown-item" href="{{ route('tasks.edit', ['id' => $task->id]) }}">Edit</a>
-                                                        <a class="dropdown-item" href="#" onclick="deleteTask({{ $task->id }})">Delete</a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <h6 class="mb-3" id="task-desc-{{ $task->id }}">{{ $task->Task_desc }}</h6>
-                                            <div class="d-flex align-items-center mb-3">
-                                                <p class="mb-0"><strong>Assigned to:</strong> <span id="task-assigned-{{ $task->id }}">{{ $task->user_name }}</span></p>
-                                            </div>
-                                            <div class="d-flex align-items-center mb-3">
-                                                <p class="mb-0"><strong>Urgent:</strong> <span id="task-urgent-{{ $task->id }}">{{ $task->urgent ? 'Yes' : 'No' }}</span></p>
-                                            </div>
-                                            <div class="d-flex align-items-center mb-3">
-                                                <p class="mb-0"><strong>Deadline:</strong> <span id="task-deadline-{{ $task->id }}">{{ $task->Deadline }}</span></p>
                                             </div>
                                         </div>
-                                        <span class="remove"></span>
+                                        <h6 class="mb-3" id="task-desc-{{ $task->id }}">{{ $task->Task_desc }}</h6>
+                                        <div class="d-flex align-items-center mb-3">
+                                            <p>Responsible Person:
+                                                @if ($task->name)
+                                                    {{ $task->user->name }}
+                                                @else
+                                                    &nbsp;
+                                                    <form action="{{ route('tasks.take', $task->id) }}" method="POST" style="display: inline;">
+                                                        @csrf
+                                                        <button type="submit" class="btn btn-primary">Take Task</button>
+                                                    </form>
+                                                @endif
+                                            </p>
+                                        </div>
+                                        <div class="d-flex align-items-center mb-3">
+                                            <p class="mb-0"><strong>Urgent:</strong> <span id="task-urgent-{{ $task->id }}">{{ $task->urgent ? 'Yes' : 'No' }}</span></p>
+                                        </div>
+                                        <div class="d-flex align-items-center mb-3">
+                                            <p class="mb-0"><strong>Deadline:</strong> <span id="task-deadline-{{ $task->id }}">{{ $task->Deadline }}</span></p>
+                                        </div>
                                     </div>
+                                    <span class="remove"></span>
                                 </div>
                             </div>
-                        @endforeach
+                        </div>
+                    @endforeach
 
                     </div>
 
@@ -201,52 +211,62 @@
                             <h5>In Progress <strong>({{ $progress_Active }})</strong> </h5>
                         </div>
 
-                        @foreach ($progress as $ongoing)
-                            <div class="group" id="group{{ $ongoing->id }}">
-                                <div class="col-lg-12 group__item">
-                                    <div class="card" id="ongoing-card-{{ $ongoing->id }}">
-                                        <div class="card-body">
-                                            <div class="d-grid grid-flow-col align-items-center justify-content-between mb-2">
-                                                <div class="d-flex align-items-center">
-                                                    <p class="mb-0">Task Details</p>
-                                                    <svg class="icon-20" width="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                        <path d="M8.5 5L15.5 12L8.5 19" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                        @foreach ($tasksGrouped->get('progress', collect()) as $task)
+                        <div class="group" id="group{{ $task->id }}">
+                            <div class="col-lg-12 group__item">
+                                <div class="card" id="task-card-{{ $task->id }}">
+                                    <div class="card-body">
+                                        <div class="d-grid grid-flow-col align-items-center justify-content-between mb-2">
+                                            <div class="d-flex align-items-center">
+                                                <p class="mb-0">Task Details</p>
+                                                <svg class="icon-20" width="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <path d="M8.5 5L15.5 12L8.5 19" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                                                </svg>
+                                                <p class="mb-0" id="task-title-{{ $task->id }}">{{ $task->Task_title }}</p>
+                                            </div>
+                                            <div class="dropdown">
+                                                <span class="h5" id="dropdownMenuButton{{ $task->id }}" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                                    <svg class="icon-24" xmlns="http://www.w3.org/2000/svg" width="24" viewBox="0 0 24 24" fill="none">
+                                                        <g>
+                                                            <circle cx="7" cy="12" r="1" fill="black"/>
+                                                            <circle cx="12" cy="12" r="1" fill="black"/>
+                                                            <circle cx="17" cy="12" r="1" fill="black"/>
+                                                        </g>
                                                     </svg>
-                                                    <p class="mb-0" id="ongoing-title-{{ $ongoing->id }}">{{ $ongoing->Task_title }}</p>
+                                                </span>
+                                                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton{{ $task->id }}">
+                                                    <a class="dropdown-item" href="#" onclick="duplicateTask({{ $task->id }})">Duplicate</a>
+                                                    <a class="dropdown-item" href="{{ route('tasks.edit', ['id' => $task->id]) }}">Edit</a>
+                                                    <a class="dropdown-item" href="#" onclick="deleteTask({{ $task->id }})">Delete</a>
                                                 </div>
-                                                <div class="dropdown">
-                                                    <span class="h5" id="dropdownMenuButton{{ $ongoing->id }}" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                                        <svg class="icon-24" xmlns="http://www.w3.org/2000/svg" width="24" viewBox="0 0 24 24" fill="none">
-                                                            <g>
-                                                                <circle cx="7" cy="12" r="1" fill="black"/>
-                                                                <circle cx="12" cy="12" r="1" fill="black"/>
-                                                                <circle cx="17" cy="12" r="1" fill="black"/>
-                                                            </g>
-                                                        </svg>
-                                                    </span>
-                                                    <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton{{ $ongoing->id }}">
-                                                        <a class="dropdown-item" href="#" onclick="duplicateTask({{ $ongoing->id }})">Duplicate</a>
-                                                        <a class="dropdown-item" href="#" onclick="renameTask({{ $ongoing->id }})">Edit</a>
-                                                        <a class="dropdown-item" href="#" onclick="deleteTask({{ $ongoing->id }})">Delete</a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <h6 class="mb-3" id="ongoing-desc-{{ $ongoing->id }}">{{ $ongoing->Task_desc }}</h6>
-                                            <div class="d-flex align-items-center mb-3">
-                                                <p class="mb-0"><strong>Assigned to:</strong> <span id="ongoing-assigned-{{ $ongoing->id }}">{{ $ongoing->name }}</span></p>
-                                            </div>
-                                            <div class="d-flex align-items-center mb-3">
-                                                <p class="mb-0"><strong>Urgent:</strong> <span id="ongoing-urgent-{{ $ongoing->id }}">{{ $ongoing->urgent ? 'Yes' : 'No' }}</span></p>
-                                            </div>
-                                            <div class="d-flex align-items-center mb-3">
-                                                <p class="mb-0"><strong>Deadline:</strong> <span id="ongoing-deadline-{{ $ongoing->id }}">{{ $ongoing->Deadline }}</span></p>
                                             </div>
                                         </div>
-                                        <span class="remove"></span>
+                                        <h6 class="mb-3" id="task-desc-{{ $task->id }}">{{ $task->Task_desc }}</h6>
+                                        <div class="d-flex align-items-center mb-3">
+                                            <p>Responsible Person:
+                                                @if ($task->name)
+                                                    {{ $task->user->name }}
+                                                @else
+                                                    &nbsp;
+                                                    <form action="{{ route('tasks.take', $task->id) }}" method="POST" style="display: inline;">
+                                                        @csrf
+                                                        <button type="submit" class="btn btn-primary">Take Task</button>
+                                                    </form>
+                                                @endif
+                                            </p>
+                                        </div>
+                                        <div class="d-flex align-items-center mb-3">
+                                            <p class="mb-0"><strong>Urgent:</strong> <span id="task-urgent-{{ $task->id }}">{{ $task->urgent ? 'Yes' : 'No' }}</span></p>
+                                        </div>
+                                        <div class="d-flex align-items-center mb-3">
+                                            <p class="mb-0"><strong>Deadline:</strong> <span id="task-deadline-{{ $task->id }}">{{ $task->Deadline }}</span></p>
+                                        </div>
                                     </div>
+                                    <span class="remove"></span>
                                 </div>
                             </div>
-                        @endforeach
+                        </div>
+                    @endforeach
                     </div>
 
                 </div>
@@ -263,60 +283,63 @@
                             <h5>For Review <strong>({{ $review_Active }})</strong></h5>
                         </div>
 
-                        @foreach ($review as $reviews)
-                            <div class="group" id="group{{ $reviews->id }}">
-                                <div class="col-lg-12 group__item">
-                                    <div class="card" id="reviews-card-{{ $reviews->id }}">
-                                        <div class="card-body">
-                                            <div class="d-grid grid-flow-col align-items-center justify-content-between mb-2">
-                                                <div class="d-flex align-items-center">
-                                                    <p class="mb-0">Task Details</p>
-                                                    <svg class="icon-20" width="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                        <path d="M8.5 5L15.5 12L8.5 19" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                        @foreach ($tasksGrouped->get('review', collect()) as $task)
+                        <div class="group" id="group{{ $task->id }}">
+                            <div class="col-lg-12 group__item">
+                                <div class="card" id="task-card-{{ $task->id }}">
+                                    <div class="card-body">
+                                        <div class="d-grid grid-flow-col align-items-center justify-content-between mb-2">
+                                            <div class="d-flex align-items-center">
+                                                <p class="mb-0">Task Details</p>
+                                                <svg class="icon-20" width="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <path d="M8.5 5L15.5 12L8.5 19" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                                                </svg>
+                                                <p class="mb-0" id="task-title-{{ $task->id }}">{{ $task->Task_title }}</p>
+                                            </div>
+                                            <div class="dropdown">
+                                                <span class="h5" id="dropdownMenuButton{{ $task->id }}" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                                    <svg class="icon-24" xmlns="http://www.w3.org/2000/svg" width="24" viewBox="0 0 24 24" fill="none">
+                                                        <g>
+                                                            <circle cx="7" cy="12" r="1" fill="black"/>
+                                                            <circle cx="12" cy="12" r="1" fill="black"/>
+                                                            <circle cx="17" cy="12" r="1" fill="black"/>
+                                                        </g>
                                                     </svg>
-                                                    <p class="mb-0" id="reviews-title-{{ $reviews->id }}">{{ $reviews->Task_title }}</p>
+                                                </span>
+                                                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton{{ $task->id }}">
+                                                    <a class="dropdown-item" href="#" onclick="duplicateTask({{ $task->id }})">Duplicate</a>
+                                                    <a class="dropdown-item" href="{{ route('tasks.edit', ['id' => $task->id]) }}">Edit</a>
+                                                    <a class="dropdown-item" href="#" onclick="deleteTask({{ $task->id }})">Delete</a>
                                                 </div>
-                                                <div class="dropdown">
-                                                    <span class="h5" id="dropdownMenuButton{{ $reviews->id }}" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                                        <svg class="icon-24" xmlns="http://www.w3.org/2000/svg" width="24" viewBox="0 0 24 24" fill="none">
-                                                            <g>
-                                                                <circle cx="7" cy="12" r="1" fill="black"/>
-                                                                <circle cx="12" cy="12" r="1" fill="black"/>
-                                                                <circle cx="17" cy="12" r="1" fill="black"/>
-                                                            </g>
-                                                        </svg>
-                                                    </span>
-                                                    <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton{{ $reviews->id }}">
-                                                        <a class="dropdown-item" href="#" onclick="duplicateTask({{ $reviews->id }})">Duplicate</a>
-                                                        <a class="dropdown-item" href="{{ route('tasks.edit', ['id' => $reviews->id]) }}">
-                                                            <svg width="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="me-2 icon-20">
-                                                                <path d="M13.7476 20.4428H21.0002" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-                                                                <path fill-rule="evenodd" clip-rule="evenodd" d="M12.78 3.79479C13.5557 2.86779 14.95 2.73186 15.8962 3.49173C15.9485 3.53296 17.6295 4.83879 17.6295 4.83879C18.669 5.46719 18.992 6.80311 18.3494 7.82259C18.3153 7.87718 8.81195 19.7645 8.81195 19.7645C8.49578 20.1589 8.01583 20.3918 7.50291 20.3973L3.86353 20.443L3.04353 16.9723C2.92866 16.4843 3.04353 15.9718 3.3597 15.5773L12.78 3.79479Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-                                                                <path d="M11.021 6.00098L16.4732 10.1881" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-                                                            </svg>
-                                                            Edit
-                                                        </a>
-
-                                                        <a class="dropdown-item" href="#" onclick="deleteTask({{ $reviews->id }})">Delete</a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <h6 class="mb-3" id="reviews-desc-{{ $reviews->id }}">{{ $reviews->Task_desc }}</h6>
-                                            <div class="d-flex align-items-center mb-3">
-                                                <p class="mb-0"><strong>Assigned to:</strong> <span id="reviews-assigned-{{ $reviews->id }}">{{ $reviews->name }}</span></p>
-                                            </div>
-                                            <div class="d-flex align-items-center mb-3">
-                                                <p class="mb-0"><strong>Urgent:</strong> <span id="reviews-urgent-{{ $reviews->id }}">{{ $reviews->urgent ? 'Yes' : 'No' }}</span></p>
-                                            </div>
-                                            <div class="d-flex align-items-center mb-3">
-                                                <p class="mb-0"><strong>Deadline:</strong> <span id="reviews-deadline-{{ $reviews->id }}">{{ $reviews->Deadline }}</span></p>
                                             </div>
                                         </div>
-                                        <span class="remove"></span>
+                                        <h6 class="mb-3" id="task-desc-{{ $task->id }}">{{ $task->Task_desc }}</h6>
+                                        <div class="d-flex align-items-center mb-3">
+                                            <p>Responsible Person:
+                                                @if ($task->name)
+                                                    {{ $task->user->name }}
+                                                @else
+                                                    &nbsp;
+                                                    <form action="{{ route('tasks.take', $task->id) }}" method="POST" style="display: inline;">
+                                                        @csrf
+                                                        <button type="submit" class="btn btn-primary">Take Task</button>
+                                                    </form>
+                                                @endif
+                                            </p>
+                                        </div>
+                                        <div class="d-flex align-items-center mb-3">
+                                            <p class="mb-0"><strong>Urgent:</strong> <span id="task-urgent-{{ $task->id }}">{{ $task->urgent ? 'Yes' : 'No' }}</span></p>
+                                        </div>
+                                        <div class="d-flex align-items-center mb-3">
+                                            <p class="mb-0"><strong>Deadline:</strong> <span id="task-deadline-{{ $task->id }}">{{ $task->Deadline }}</span></p>
+                                        </div>
                                     </div>
+                                    <span class="remove"></span>
                                 </div>
                             </div>
-                        @endforeach
+                        </div>
+                    @endforeach
+
                     </div>
 
                 </div>
@@ -333,52 +356,62 @@
                             <h5>Finished <strong>({{ $close_Active }})</strong></h5>
                         </div>
 
-                        @foreach ($close as $closed)
-                            <div class="group" id="group{{ $closed->id }}">
-                                <div class="col-lg-12 group__item">
-                                    <div class="card" id="closed-card-{{ $closed->id }}">
-                                        <div class="card-body">
-                                            <div class="d-grid grid-flow-col align-items-center justify-content-between mb-2">
-                                                <div class="d-flex align-items-center">
-                                                    <p class="mb-0">Task Details</p>
-                                                    <svg class="icon-20" width="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                        <path d="M8.5 5L15.5 12L8.5 19" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                        @foreach ($tasksGrouped->get('close', collect()) as $task)
+                        <div class="group" id="group{{ $task->id }}">
+                            <div class="col-lg-12 group__item">
+                                <div class="card" id="task-card-{{ $task->id }}">
+                                    <div class="card-body">
+                                        <div class="d-grid grid-flow-col align-items-center justify-content-between mb-2">
+                                            <div class="d-flex align-items-center">
+                                                <p class="mb-0">Task Details</p>
+                                                <svg class="icon-20" width="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <path d="M8.5 5L15.5 12L8.5 19" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                                                </svg>
+                                                <p class="mb-0" id="task-title-{{ $task->id }}">{{ $task->Task_title }}</p>
+                                            </div>
+                                            <div class="dropdown">
+                                                <span class="h5" id="dropdownMenuButton{{ $task->id }}" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                                    <svg class="icon-24" xmlns="http://www.w3.org/2000/svg" width="24" viewBox="0 0 24 24" fill="none">
+                                                        <g>
+                                                            <circle cx="7" cy="12" r="1" fill="black"/>
+                                                            <circle cx="12" cy="12" r="1" fill="black"/>
+                                                            <circle cx="17" cy="12" r="1" fill="black"/>
+                                                        </g>
                                                     </svg>
-                                                    <p class="mb-0" id="closed-title-{{ $closed->id }}">{{ $closed->Task_title }}</p>
+                                                </span>
+                                                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton{{ $task->id }}">
+                                                    <a class="dropdown-item" href="#" onclick="duplicateTask({{ $task->id }})">Duplicate</a>
+                                                    <a class="dropdown-item" href="{{ route('tasks.edit', ['id' => $task->id]) }}">Edit</a>
+                                                    <a class="dropdown-item" href="#" onclick="deleteTask({{ $task->id }})">Delete</a>
                                                 </div>
-                                                <div class="dropdown">
-                                                    <span class="h5" id="dropdownMenuButton{{ $closed->id }}" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                                        <svg class="icon-24" xmlns="http://www.w3.org/2000/svg" width="24" viewBox="0 0 24 24" fill="none">
-                                                            <g>
-                                                                <circle cx="7" cy="12" r="1" fill="black"/>
-                                                                <circle cx="12" cy="12" r="1" fill="black"/>
-                                                                <circle cx="17" cy="12" r="1" fill="black"/>
-                                                            </g>
-                                                        </svg>
-                                                    </span>
-                                                    <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton{{ $closed->id }}">
-                                                        <a class="dropdown-item" href="#" onclick="duplicateTask({{ $closed->id }})">Duplicate</a>
-                                                        <a class="dropdown-item" href="#" onclick="renameTask({{ $closed->id }})">Edit</a>
-                                                        <a class="dropdown-item" href="#" onclick="deleteTask({{ $closed->id }})">Delete</a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <h6 class="mb-3" id="closed-desc-{{ $closed->id }}">{{ $closed->Task_desc }}</h6>
-                                            <div class="d-flex align-items-center mb-3">
-                                                <p class="mb-0"><strong>Assigned to:</strong> <span id="closed-assigned-{{ $closed->id }}">{{ $closed->name }}</span></p>
-                                            </div>
-                                            <div class="d-flex align-items-center mb-3">
-                                                <p class="mb-0"><strong>Urgent:</strong> <span id="closed-urgent-{{ $closed->id }}">{{ $closed->urgent ? 'Yes' : 'No' }}</span></p>
-                                            </div>
-                                            <div class="d-flex align-items-center mb-3">
-                                                <p class="mb-0"><strong>Deadline:</strong> <span id="closed-deadline-{{ $closed->id }}">{{ $closed->Deadline }}</span></p>
                                             </div>
                                         </div>
-                                        <span class="remove"></span>
+                                        <h6 class="mb-3" id="task-desc-{{ $task->id }}">{{ $task->Task_desc }}</h6>
+                                        <div class="d-flex align-items-center mb-3">
+                                            <p>Responsible Person:
+                                                @if ($task->name)
+                                                    {{ $task->user->name }}
+                                                @else
+                                                    &nbsp;
+                                                    <form action="{{ route('tasks.take', $task->id) }}" method="POST" style="display: inline;">
+                                                        @csrf
+                                                        <button type="submit" class="btn btn-primary">Take Task</button>
+                                                    </form>
+                                                @endif
+                                            </p>
+                                        </div>
+                                        <div class="d-flex align-items-center mb-3">
+                                            <p class="mb-0"><strong>Urgent:</strong> <span id="task-urgent-{{ $task->id }}">{{ $task->urgent ? 'Yes' : 'No' }}</span></p>
+                                        </div>
+                                        <div class="d-flex align-items-center mb-3">
+                                            <p class="mb-0"><strong>Deadline:</strong> <span id="task-deadline-{{ $task->id }}">{{ $task->Deadline }}</span></p>
+                                        </div>
                                     </div>
+                                    <span class="remove"></span>
                                 </div>
                             </div>
-                        @endforeach
+                        </div>
+                    @endforeach
                     </div>
 
                 </div>
