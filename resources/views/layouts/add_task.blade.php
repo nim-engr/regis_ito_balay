@@ -58,11 +58,11 @@
                 </div>
                 <div class="form-check form-switch">
                     <!-- Hidden field to send 0 when the switch is off -->
-                    <input type="hidden" name="urgent" value="0">
+                    <input type="hidden" name="Priority" value="0">
 
                     <!-- Switch -->
-                    <input class="form-check-input" type="checkbox" name="urgent" id="urgent" value="1" {{ old('urgent', 0) == 1 ? 'checked' : '' }}>
-                    <label class="form-check-label" for="urgent">Urgent Submission</label>
+                    <input class="form-check-input" type="checkbox" name="Priority" id="Priority" value="1" {{ old('Priority', 0) == 1 ? 'checked' : '' }}>
+                    <label class="form-check-label" for="Priority">Priority:</label>
                 </div>
 
             </div>

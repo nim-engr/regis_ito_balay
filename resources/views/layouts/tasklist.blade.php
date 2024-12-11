@@ -144,12 +144,9 @@
                                 <div class="card" id="task-card-{{ $task->id }}">
                                     <div class="card-body">
                                         <div class="d-grid grid-flow-col align-items-center justify-content-between mb-2">
-                                            <div class="d-flex align-items-center">
-                                                <p class="mb-0">Task Details</p>
-                                                <svg class="icon-20" width="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                    <path d="M8.5 5L15.5 12L8.5 19" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-                                                </svg>
-                                                <p class="mb-0" id="task-title-{{ $task->id }}">{{ $task->Task_title }}</p>
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <p class="mb-0"><strong>Task Title: &nbsp;</strong></p>
+                                                 <p class="mb-0" id="task-title-{{ $task->id }}">{{ $task->Task_title }}</p>
                                             </div>
                                             <div class="dropdown">
                                                 <span class="h5" id="dropdownMenuButton{{ $task->id }}" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -168,25 +165,40 @@
                                                 </div>
                                             </div>
                                         </div>
+                                        <p class="mb-1"><strong>Task Description: &nbsp;</strong></p>
                                         <h6 class="mb-3" id="task-desc-{{ $task->id }}">{{ $task->Task_desc }}</h6>
-                                        <div class="d-flex align-items-center mb-3">
-                                            <p>Responsible Person:
-                                                @if ($task->name)
-                                                    {{ $task->user->name }}
-                                                @else
-                                                    &nbsp;
-                                                    <form action="{{ route('tasks.take', $task->id) }}" method="POST" style="display: inline;">
-                                                        @csrf
-                                                        <button type="submit" class="btn btn-primary">Take Task</button>
-                                                    </form>
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <p class="mb-0">
+                                                <strong>Deadline:</strong>
+                                            </p>
+                                                <span class="align-content-right" id="task-deadline-{{ $task->id }}">{{ $task->Deadline }}</span>
+                                        </div>
+                                        <div class="mb-0 d-flex justify-content-between align-items-center">
+                                            <p><strong>Requested by:</strong></p>
+                                            <p>{{ $task->name }}</p>
+                                        </div>
+                                        <div class="mb-0 d-flex justify-content-between align-items-center">
+                                            <p><strong>Responsible Person:</strong></p>
+                                            @if ($task->name)
+                                                <p class="justify-content-between align-content-right">{{ $task->user->name }}</p>
+                                            @else
+                                                <form action="{{ route('tasks.take', $task->id) }}" method="POST">
+                                                    @csrf
+                                                    <button type="submit" class="btn btn-primary btn-sm justify-content-between align-content-right ">Take Task</button>
+                                                </form>
+                                            @endif
+                                        </div>
+                                        <div class="d-flex justify-content-between align-items-center mb-3">
+                                            <p class="mb-0"><strong>Priority:</strong></p>
+                                            <p class="mb-0">
+                                                @if ($task->Priority == "1")
+                                                    <span id="task-Priority-{{ $task->id }}" class="badge rounded-pill bg-success">Low</span>
+                                                @elseif ($task->Priority == "2")
+                                                    <span id="task-Priority-{{ $task->id }}" class="badge rounded-pill bg-warning">Moderate</span>
+                                                @elseif ($task->Priority == "3")
+                                                    <span id="task-Priority-{{ $task->id }}" class="badge rounded-pill bg-danger">High</span>
                                                 @endif
                                             </p>
-                                        </div>
-                                        <div class="d-flex align-items-center mb-3">
-                                            <p class="mb-0"><strong>Priority:</strong> <span id="task-Priority-{{ $task->id }}">{{ $task->Priority ? 'Yes' : 'No' }}</span></p>
-                                        </div>
-                                        <div class="d-flex align-items-center mb-3">
-                                            <p class="mb-0"><strong>Deadline:</strong> <span id="task-deadline-{{ $task->id }}">{{ $task->Deadline }}</span></p>
                                         </div>
                                     </div>
                                     <span class="remove"></span>
@@ -217,12 +229,9 @@
                                 <div class="card" id="task-card-{{ $task->id }}">
                                     <div class="card-body">
                                         <div class="d-grid grid-flow-col align-items-center justify-content-between mb-2">
-                                            <div class="d-flex align-items-center">
-                                                <p class="mb-0">Task Details</p>
-                                                <svg class="icon-20" width="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                    <path d="M8.5 5L15.5 12L8.5 19" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-                                                </svg>
-                                                <p class="mb-0" id="task-title-{{ $task->id }}">{{ $task->Task_title }}</p>
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <p class="mb-0"><strong>Task Title: &nbsp;</strong></p>
+                                                 <p class="mb-0" id="task-title-{{ $task->id }}">{{ $task->Task_title }}</p>
                                             </div>
                                             <div class="dropdown">
                                                 <span class="h5" id="dropdownMenuButton{{ $task->id }}" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -241,25 +250,40 @@
                                                 </div>
                                             </div>
                                         </div>
+                                        <p class="mb-1"><strong>Task Description: &nbsp;</strong></p>
                                         <h6 class="mb-3" id="task-desc-{{ $task->id }}">{{ $task->Task_desc }}</h6>
-                                        <div class="d-flex align-items-center mb-3">
-                                            <p>Responsible Person:
-                                                @if ($task->name)
-                                                    {{ $task->user->name }}
-                                                @else
-                                                    &nbsp;
-                                                    <form action="{{ route('tasks.take', $task->id) }}" method="POST" style="display: inline;">
-                                                        @csrf
-                                                        <button type="submit" class="btn btn-primary">Take Task</button>
-                                                    </form>
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <p class="mb-0">
+                                                <strong>Deadline:</strong>
+                                            </p>
+                                                <span class="align-content-right" id="task-deadline-{{ $task->id }}">{{ $task->Deadline }}</span>
+                                        </div>
+                                        <div class="mb-0 d-flex justify-content-between align-items-center">
+                                            <p><strong>Requested by:</strong></p>
+                                            <p>{{ $task->name }}</p>
+                                        </div>
+                                        <div class="mb-0 d-flex justify-content-between align-items-center">
+                                            <p><strong>Responsible Person:</strong></p>
+                                            @if ($task->name)
+                                                <p class="justify-content-between align-content-right">{{ $task->user->name }}</p>
+                                            @else
+                                                <form action="{{ route('tasks.take', $task->id) }}" method="POST">
+                                                    @csrf
+                                                    <button type="submit" class="btn btn-primary btn-sm justify-content-between align-content-right ">Take Task</button>
+                                                </form>
+                                            @endif
+                                        </div>
+                                        <div class="d-flex justify-content-between align-items-center mb-3">
+                                            <p class="mb-0"><strong>Priority:</strong></p>
+                                            <p class="mb-0">
+                                                @if ($task->Priority == "1")
+                                                    <span id="task-Priority-{{ $task->id }}" class="badge rounded-pill bg-success">Low</span>
+                                                @elseif ($task->Priority == "2")
+                                                    <span id="task-Priority-{{ $task->id }}" class="badge rounded-pill bg-warning">Moderate</span>
+                                                @elseif ($task->Priority == "3")
+                                                    <span id="task-Priority-{{ $task->id }}" class="badge rounded-pill bg-danger">High</span>
                                                 @endif
                                             </p>
-                                        </div>
-                                        <div class="d-flex align-items-center mb-3">
-                                            <p class="mb-0"><strong>Priority:</strong> <span id="task-Priority-{{ $task->id }}">{{ $task->Priority ? 'Yes' : 'No' }}</span></p>
-                                        </div>
-                                        <div class="d-flex align-items-center mb-3">
-                                            <p class="mb-0"><strong>Deadline:</strong> <span id="task-deadline-{{ $task->id }}">{{ $task->Deadline }}</span></p>
                                         </div>
                                     </div>
                                     <span class="remove"></span>
@@ -280,7 +304,7 @@
 
                     <div class="group1-wrap">
                         <div class="d-flex justify-content-between align-items-center mb-3">
-                            <h5>For Review <strong>({{ $review_Active }})</strong></h5>
+                            <h5>Review <strong>({{ $review_Active }})</strong></h5>
                         </div>
 
                         @foreach ($tasksGrouped->get('review', collect()) as $task)
@@ -289,12 +313,9 @@
                                 <div class="card" id="task-card-{{ $task->id }}">
                                     <div class="card-body">
                                         <div class="d-grid grid-flow-col align-items-center justify-content-between mb-2">
-                                            <div class="d-flex align-items-center">
-                                                <p class="mb-0">Task Details</p>
-                                                <svg class="icon-20" width="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                    <path d="M8.5 5L15.5 12L8.5 19" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-                                                </svg>
-                                                <p class="mb-0" id="task-title-{{ $task->id }}">{{ $task->Task_title }}</p>
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <p class="mb-0"><strong>Task Title: &nbsp;</strong></p>
+                                                 <p class="mb-0" id="task-title-{{ $task->id }}">{{ $task->Task_title }}</p>
                                             </div>
                                             <div class="dropdown">
                                                 <span class="h5" id="dropdownMenuButton{{ $task->id }}" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -313,25 +334,40 @@
                                                 </div>
                                             </div>
                                         </div>
+                                        <p class="mb-1"><strong>Task Description: &nbsp;</strong></p>
                                         <h6 class="mb-3" id="task-desc-{{ $task->id }}">{{ $task->Task_desc }}</h6>
-                                        <div class="d-flex align-items-center mb-3">
-                                            <p>Responsible Person:
-                                                @if ($task->name)
-                                                    {{ $task->user->name }}
-                                                @else
-                                                    &nbsp;
-                                                    <form action="{{ route('tasks.take', $task->id) }}" method="POST" style="display: inline;">
-                                                        @csrf
-                                                        <button type="submit" class="btn btn-primary">Take Task</button>
-                                                    </form>
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <p class="mb-0">
+                                                <strong>Deadline:</strong>
+                                            </p>
+                                                <span class="align-content-right" id="task-deadline-{{ $task->id }}">{{ $task->Deadline }}</span>
+                                        </div>
+                                        <div class="mb-0 d-flex justify-content-between align-items-center">
+                                            <p><strong>Requested by:</strong></p>
+                                            <p>{{ $task->name }}</p>
+                                        </div>
+                                        <div class="mb-0 d-flex justify-content-between align-items-center">
+                                            <p><strong>Responsible Person:</strong></p>
+                                            @if ($task->name)
+                                                <p class="justify-content-between align-content-right">{{ $task->user->name }}</p>
+                                            @else
+                                                <form action="{{ route('tasks.take', $task->id) }}" method="POST">
+                                                    @csrf
+                                                    <button type="submit" class="btn btn-primary btn-sm justify-content-between align-content-right ">Take Task</button>
+                                                </form>
+                                            @endif
+                                        </div>
+                                        <div class="d-flex justify-content-between align-items-center mb-3">
+                                            <p class="mb-0"><strong>Priority:</strong></p>
+                                            <p class="mb-0">
+                                                @if ($task->Priority == "1")
+                                                    <span id="task-Priority-{{ $task->id }}" class="badge rounded-pill bg-success">Low</span>
+                                                @elseif ($task->Priority == "2")
+                                                    <span id="task-Priority-{{ $task->id }}" class="badge rounded-pill bg-warning">Moderate</span>
+                                                @elseif ($task->Priority == "3")
+                                                    <span id="task-Priority-{{ $task->id }}" class="badge rounded-pill bg-danger">High</span>
                                                 @endif
                                             </p>
-                                        </div>
-                                        <div class="d-flex align-items-center mb-3">
-                                            <p class="mb-0"><strong>Priority:</strong> <span id="task-Priority-{{ $task->id }}">{{ $task->Priority ? 'Yes' : 'No' }}</span></p>
-                                        </div>
-                                        <div class="d-flex align-items-center mb-3">
-                                            <p class="mb-0"><strong>Deadline:</strong> <span id="task-deadline-{{ $task->id }}">{{ $task->Deadline }}</span></p>
                                         </div>
                                     </div>
                                     <span class="remove"></span>
@@ -341,7 +377,6 @@
                     @endforeach
 
                     </div>
-
                 </div>
             </div>
         </div>
@@ -362,12 +397,9 @@
                                 <div class="card" id="task-card-{{ $task->id }}">
                                     <div class="card-body">
                                         <div class="d-grid grid-flow-col align-items-center justify-content-between mb-2">
-                                            <div class="d-flex align-items-center">
-                                                <p class="mb-0">Task Details</p>
-                                                <svg class="icon-20" width="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                    <path d="M8.5 5L15.5 12L8.5 19" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-                                                </svg>
-                                                <p class="mb-0" id="task-title-{{ $task->id }}">{{ $task->Task_title }}</p>
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <p class="mb-0"><strong>Task Title: &nbsp;</strong></p>
+                                                 <p class="mb-0" id="task-title-{{ $task->id }}">{{ $task->Task_title }}</p>
                                             </div>
                                             <div class="dropdown">
                                                 <span class="h5" id="dropdownMenuButton{{ $task->id }}" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -386,25 +418,40 @@
                                                 </div>
                                             </div>
                                         </div>
+                                        <p class="mb-1"><strong>Task Description: &nbsp;</strong></p>
                                         <h6 class="mb-3" id="task-desc-{{ $task->id }}">{{ $task->Task_desc }}</h6>
-                                        <div class="d-flex align-items-center mb-3">
-                                            <p>Responsible Person:
-                                                @if ($task->name)
-                                                    {{ $task->user->name }}
-                                                @else
-                                                    &nbsp;
-                                                    <form action="{{ route('tasks.take', $task->id) }}" method="POST" style="display: inline;">
-                                                        @csrf
-                                                        <button type="submit" class="btn btn-primary">Take Task</button>
-                                                    </form>
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <p class="mb-0">
+                                                <strong>Deadline:</strong>
+                                            </p>
+                                                <span class="align-content-right" id="task-deadline-{{ $task->id }}">{{ $task->Deadline }}</span>
+                                        </div>
+                                        <div class="mb-0 d-flex justify-content-between align-items-center">
+                                            <p><strong>Requested by:</strong></p>
+                                            <p>{{ $task->name }}</p>
+                                        </div>
+                                        <div class="mb-0 d-flex justify-content-between align-items-center">
+                                            <p><strong>Responsible Person:</strong></p>
+                                            @if ($task->name)
+                                                <p class="justify-content-between align-content-right">{{ $task->user->name }}</p>
+                                            @else
+                                                <form action="{{ route('tasks.take', $task->id) }}" method="POST">
+                                                    @csrf
+                                                    <button type="submit" class="btn btn-primary btn-sm justify-content-between align-content-right ">Take Task</button>
+                                                </form>
+                                            @endif
+                                        </div>
+                                        <div class="d-flex justify-content-between align-items-center mb-3">
+                                            <p class="mb-0"><strong>Priority:</strong></p>
+                                            <p class="mb-0">
+                                                @if ($task->Priority == "1")
+                                                    <span id="task-Priority-{{ $task->id }}" class="badge rounded-pill bg-success">Low</span>
+                                                @elseif ($task->Priority == "2")
+                                                    <span id="task-Priority-{{ $task->id }}" class="badge rounded-pill bg-warning">Moderate</span>
+                                                @elseif ($task->Priority == "3")
+                                                    <span id="task-Priority-{{ $task->id }}" class="badge rounded-pill bg-danger">High</span>
                                                 @endif
                                             </p>
-                                        </div>
-                                        <div class="d-flex align-items-center mb-3">
-                                            <p class="mb-0"><strong>Priority:</strong> <span id="task-Priority-{{ $task->id }}">{{ $task->Priority ? 'Yes' : 'No' }}</span></p>
-                                        </div>
-                                        <div class="d-flex align-items-center mb-3">
-                                            <p class="mb-0"><strong>Deadline:</strong> <span id="task-deadline-{{ $task->id }}">{{ $task->Deadline }}</span></p>
                                         </div>
                                     </div>
                                     <span class="remove"></span>

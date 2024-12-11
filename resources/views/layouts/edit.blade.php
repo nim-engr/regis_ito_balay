@@ -68,7 +68,7 @@
 
                                 <!-- Switch -->
                                 <input class="form-check-input" type="checkbox" name="Priority" id="Priority" value="1" {{ old('Priority', $task->Priority) == 1 ? 'checked' : '' }}>
-                                <label class="form-check-label" for="Priority">Priority Submission</label>
+                                <label class="form-check-label" for="Priority">Priority:</label>
                             </div>
                         </div>
 
