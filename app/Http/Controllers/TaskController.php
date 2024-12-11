@@ -22,7 +22,7 @@ class TaskController extends Controller
             'name'       => 'nullable|string|max:255',
             'file'       => 'nullable|file', // Optional file upload
             'Deadline'   => 'required|date',
-            'urgent'     => 'required|boolean',
+            'Priority'     => 'required|boolean',
         ]);
         if ($validator->fails()) { // Handle validation failure
             return redirect()
@@ -34,7 +34,7 @@ class TaskController extends Controller
             ->where('Task_desc', $request->Task_desc)
             ->where('name', $request->name)
             ->where('Deadline', $request->Deadline)
-            ->where('urgent', $request->urgent)
+            ->where('Priority', $request->Priority)
             ->exists();
         if ($exists) {
             return redirect()
@@ -47,7 +47,7 @@ class TaskController extends Controller
         $task->Task_desc = $request->Task_desc;
         $task->name = $request->name;
         $task->Deadline = $request->Deadline;
-        $task->urgent = $request->urgent;
+        $task->Priority = $request->Priority;
         if ($request->hasFile('file')) {    // Handle file upload
             $filePath = $request->file('file')->store('tasks', 'public'); // Save in `storage/app/public/tasks`
             $task->file = $filePath;
@@ -91,7 +91,7 @@ class TaskController extends Controller
             'Task_desc' => 'required|string',
             'name' => 'nullable|exists:users,id',
             'Deadline' => 'required|date',
-            'urgent' => 'nullable|boolean',
+            'Priority' => 'required|int',
         ]);
 
         $task = Task::findOrFail($id); // Find the task by ID or throw 404
@@ -99,7 +99,7 @@ class TaskController extends Controller
         $task->Task_desc = $request->Task_desc;
         $task->name = $request->input('name');
         $task->Deadline = $request->Deadline;
-        $task->urgent = $request->boolean('urgent'); // Convert checkbox to boolean
+        $task->Priority = $request->boolean('Priority'); // Convert checkbox to boolean
         $task->save(); // Save changes
 
         return redirect()->route('tasklist')->with('success', 'Task updated successfully!');

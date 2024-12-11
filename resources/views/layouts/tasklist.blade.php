@@ -183,7 +183,7 @@
                                             </p>
                                         </div>
                                         <div class="d-flex align-items-center mb-3">
-                                            <p class="mb-0"><strong>Urgent:</strong> <span id="task-urgent-{{ $task->id }}">{{ $task->urgent ? 'Yes' : 'No' }}</span></p>
+                                            <p class="mb-0"><strong>Priority:</strong> <span id="task-Priority-{{ $task->id }}">{{ $task->Priority ? 'Yes' : 'No' }}</span></p>
                                         </div>
                                         <div class="d-flex align-items-center mb-3">
                                             <p class="mb-0"><strong>Deadline:</strong> <span id="task-deadline-{{ $task->id }}">{{ $task->Deadline }}</span></p>
@@ -256,7 +256,7 @@
                                             </p>
                                         </div>
                                         <div class="d-flex align-items-center mb-3">
-                                            <p class="mb-0"><strong>Urgent:</strong> <span id="task-urgent-{{ $task->id }}">{{ $task->urgent ? 'Yes' : 'No' }}</span></p>
+                                            <p class="mb-0"><strong>Priority:</strong> <span id="task-Priority-{{ $task->id }}">{{ $task->Priority ? 'Yes' : 'No' }}</span></p>
                                         </div>
                                         <div class="d-flex align-items-center mb-3">
                                             <p class="mb-0"><strong>Deadline:</strong> <span id="task-deadline-{{ $task->id }}">{{ $task->Deadline }}</span></p>
@@ -328,7 +328,7 @@
                                             </p>
                                         </div>
                                         <div class="d-flex align-items-center mb-3">
-                                            <p class="mb-0"><strong>Urgent:</strong> <span id="task-urgent-{{ $task->id }}">{{ $task->urgent ? 'Yes' : 'No' }}</span></p>
+                                            <p class="mb-0"><strong>Priority:</strong> <span id="task-Priority-{{ $task->id }}">{{ $task->Priority ? 'Yes' : 'No' }}</span></p>
                                         </div>
                                         <div class="d-flex align-items-center mb-3">
                                             <p class="mb-0"><strong>Deadline:</strong> <span id="task-deadline-{{ $task->id }}">{{ $task->Deadline }}</span></p>
@@ -401,7 +401,7 @@
                                             </p>
                                         </div>
                                         <div class="d-flex align-items-center mb-3">
-                                            <p class="mb-0"><strong>Urgent:</strong> <span id="task-urgent-{{ $task->id }}">{{ $task->urgent ? 'Yes' : 'No' }}</span></p>
+                                            <p class="mb-0"><strong>Priority:</strong> <span id="task-Priority-{{ $task->id }}">{{ $task->Priority ? 'Yes' : 'No' }}</span></p>
                                         </div>
                                         <div class="d-flex align-items-center mb-3">
                                             <p class="mb-0"><strong>Deadline:</strong> <span id="task-deadline-{{ $task->id }}">{{ $task->Deadline }}</span></p>
