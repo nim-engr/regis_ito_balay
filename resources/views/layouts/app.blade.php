@@ -359,7 +359,7 @@
         @yield('task')
         {{-- content end --}}
       </div>
-b
+
       <!-- Footer Section Start -->
       <footer class="footer">
           <div class="footer-body">

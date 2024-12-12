@@ -31,23 +31,26 @@
 
                         <div>
                             <div class="form-group">
-                                <label class="form-label" for="name">Responsible Person</label>
-                                <select class="form-select" name="name" id="name">
-                                    <!-- Default "Unassigned" option -->
-                                    <option value="" {{ $task->name === null ? 'selected' : '' }}>Unassigned</option>
-
+                                <label class="form-label" for="name">Priority</label>
+                                <select name="Priority" class="form-select" required>
+                                    <option value="1" {{ old('Priority', $task->Priority) == "1" ? 'selected' : '' }}>Low</option>
+                                    <option value="2" {{ old('Priority', $task->Priority) == "2" ? 'selected' : '' }}>Moderate</option>
+                                    <option value="3" {{ old('Priority', $task->Priority) == "3" ? 'selected' : '' }}>High</option>
+                                </select>
                                     <!-- Loop through all users -->
+                            <div class="form-group">
+                                <label class="form-label" for="exampleFormControlSelect1">Responsible Person</label>
+                                <select class="form-select" name="name" id="name" id="Resp_person">
                                     @foreach ($users as $user)
-                                        <option value="{{ $user->id }}" {{ $task->name == $user->id ? 'selected' : '' }}>
-                                            {{ $user->name }}
-                                        </option>
+                                        <option value="{{ $user->id }}" {{ $task->name == $user->id ? 'selected' : '' }}>{{ $user->name }}</option>
+                                        <option value="">Unassign</option>
                                     @endforeach
                                 </select>
                             </div>
-                            @error('user_id')
-                                <div class="text-danger">{{ $message }}</div>
-                            @enderror
-                        </div>
+                                        @error('user_id')
+                                            <div class="text-danger">{{ $message }}</div>
+                                        @enderror
+
 
                         <div class="form-group">
                             <label for="customFile1" class="form-label custom-file-input">Attachment Files (Optional)</label>
@@ -61,14 +64,6 @@
                                 @error('Deadline')
                                     <div class="text-danger">{{ $message }}</div>
                                 @enderror
-                            </div>
-                            <div class="form-check form-switch">
-                                <!-- Hidden field to send 0 when the switch is off -->
-                                <input type="hidden" name="Priority" value="0">
-
-                                <!-- Switch -->
-                                <input class="form-check-input" type="checkbox" name="Priority" id="Priority" value="1" {{ old('Priority', $task->Priority) == 1 ? 'checked' : '' }}>
-                                <label class="form-check-label" for="Priority">Priority:</label>
                             </div>
                         </div>
 

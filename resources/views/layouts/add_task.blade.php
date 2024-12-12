@@ -36,7 +36,6 @@
                     </option>
                     @endforeach
                     <option selected="Unassigned" value="" >Unassigned</option>
-
                 </select>
                 @error('name')
                     <div class="text-danger">{{ $message }}</div>
@@ -44,8 +43,14 @@
             </div>
 
             <div class="form-group">
-                <label for="customFile1" class="form-label custom-file-input">Attachment Files (Optional)</label>
-                <input class="form-control" type="file" id="file" id="file_attach">
+                <form action="{{ route('files.upload') }}" method="POST" enctype="multipart/form-data">
+                    @csrf
+                    <div class="form-group">
+                        <label for="customFile1" class="form-label custom-file-input">Attach Files (Optional)</label>
+                        <input type="file" name="file" id="file" class="form-control" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Upload</button>
+                </form>
             </div>
 
             <div class="form-group">
@@ -56,13 +61,18 @@
                         <div class="text-danger">{{ $message }}</div>
                     @enderror
                 </div>
-                <div class="form-check form-switch">
-                    <!-- Hidden field to send 0 when the switch is off -->
-                    <input type="hidden" name="Priority" value="0">
 
-                    <!-- Switch -->
-                    <input class="form-check-input" type="checkbox" name="Priority" id="Priority" value="1" {{ old('Priority', 0) == 1 ? 'checked' : '' }}>
-                    <label class="form-check-label" for="Priority">Priority:</label>
+                <div class="form-group">
+                    <label class="form-label" for="exampleFormControlSelect1">Priority:</label>
+                    <select class="form-select" name="Priority" id="Priority" id="Resp_person">
+                        <option selected value=" " disabled>  </option>
+                        <option value="1"> Low Priority </option>
+                        <option value="2"> Moderate Priority </option>
+                        <option value="3"> High Priority </option>
+                    </select>
+                    @error('Priority')
+                        <div class="text-danger">{{ $message }}</div>
+                    @enderror
                 </div>
 
             </div>
