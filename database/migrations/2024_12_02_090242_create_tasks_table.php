@@ -4,9 +4,9 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
+class CreateTasksTable extends Migration
 {
- /**
+    /**
      * Run the migrations.
      *
      * @return void
@@ -14,18 +14,23 @@ return new class extends Migration
     public function up()
     {
         Schema::create('tasks', function (Blueprint $table) {
-            $table->id(); // Auto-incrementing primary key
-            $table->string('task_title', 255);
-            $table->text('task_desc')->nullable();
-            $table->unsignedBigInteger('name');
-            $table->date('deadline');
-            $table->timestamp('updated_at')->useCurrent();
-            $table->dateTime('created_at');
+            $table->bigIncrements('id');
+            $table->string('Task_title', 255);
+            $table->text('Task_desc');
+            $table->unsignedBigInteger('name')->nullable();
+            $table->date('Deadline');
             $table->enum('status', ['open', 'review', 'progress', 'close'])->default('open');
-            $table->enum('priority', ['1', '2', '3'])->nullable();
+            $table->enum('Priority', ['1', '2', '3'])->default('1'); // 1 = Low, 2 = Moderate, 3 = High
+            $table->unsignedBigInteger('created_by')->nullable();
+            $table->string('file_name', 255)->nullable();
+            $table->text('file_path')->nullable();
+            $table->string('file_type', 255)->nullable();
+            $table->timestamp('uploaded_at')->nullable();
+            $table->timestamps();
 
-            // Optionally, you can add foreign keys or indexes if needed
-            // $table->foreign('name')->references('id')->on('users'); // Example foreign key
+            // Foreign keys
+            $table->foreign('name')->references('id')->on('users')->onDelete('SET NULL')->onUpdate('CASCADE');
+            $table->foreign('created_by')->references('id')->on('users')->onDelete('CASCADE')->onUpdate('CASCADE');
         });
     }
 
@@ -38,4 +43,4 @@ return new class extends Migration
     {
         Schema::dropIfExists('tasks');
     }
-};
+}
