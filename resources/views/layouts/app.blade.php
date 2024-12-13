@@ -28,8 +28,13 @@
       <!-- RTL Css -->
       <link rel="stylesheet" href="{{ asset('assets/css/rtl.min.css') }}">
 
+      <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+
+
 
   </head>
+  @include('sweetalert::alert')
   <body class="  ">
     <!-- loader Start -->
     <div id="loading">
@@ -581,6 +586,8 @@
 
     <!-- App Script -->
     <script src="{{ asset('assets/js/hope-ui.js ')}}" defer></script>
+
+     <!-- Sweet alert Script -->
 
 
 <script src="{{ asset('assets/vendor/sortable/Sortable.min.js')}}"></script>
