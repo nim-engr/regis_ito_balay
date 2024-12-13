@@ -8,6 +8,7 @@ use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
+
 class TaskController extends Controller
 {
     /**
@@ -51,7 +52,6 @@ class TaskController extends Controller
             $filePath = $request->file('file')->store('tasks', 'public'); // Save in `storage/app/public/tasks`
             $task->file_name = $request->file('file')->getClientOriginalName();
             $task->file_path = $filePath;
-            $task->file_size = $request->file('file')->getSize();
             $task->file_type = $request->file('file')->getMimeType();
         }
 
@@ -100,16 +100,20 @@ class TaskController extends Controller
      */
     public function update(Request $request, $id)
     {
+        // Validate the input data
         $request->validate([
             'Task_title' => 'required|string|max:255',
             'Task_desc' => 'required|string',
             'name' => 'nullable|exists:users,id',
             'Deadline' => 'required|date',
             'Priority' => 'required|in:1,2,3',
-            'file' => 'nullable|file|max:2048',
+            'file' => 'nullable|file|max:2048', // Optional file validation
         ]);
 
+        // Retrieve the task by ID or fail
         $task = Task::findOrFail($id);
+
+        // Update basic task fields
         $task->Task_title = $request->Task_title;
         $task->Task_desc = $request->Task_desc;
         $task->name = $request->input('name');
@@ -118,21 +122,30 @@ class TaskController extends Controller
 
         // Handle file upload
         if ($request->hasFile('file')) {
-            if ($task->file_path && Storage::exists($task->file_path)) {
-                Storage::delete($task->file_path); // Delete the old file
+            // Check if the task has an existing file and delete it
+            if (!empty($task->file_path) && Storage::exists('public/' . $task->file_path)) {
+                Storage::delete('public/' . $task->file_path);
             }
 
-            $filePath = $request->file('file')->store('tasks', 'public');
-            $task->file_name = $request->file('file')->getClientOriginalName();
-            $task->file_path = $filePath;
-            $task->file_size = $request->file('file')->getSize();
-            $task->file_type = $request->file('file')->getMimeType();
+            // Store the new file
+            $uploadedFile = $request->file('file');
+            $filePath = $uploadedFile->store('tasks', 'public'); // Store in the 'tasks' folder under 'public'
+
+            // Update task file details
+            $task->file_name = $uploadedFile->getClientOriginalName(); // Original file name
+            $task->file_path = $filePath; // Path to the stored file
+            $task->file_type = $uploadedFile->getClientMimeType(); // File type (e.g., image/jpeg)
         }
 
-        $task->save();
+        // Save the updated task
+        if ($task->save()) {
+            return redirect()->route('tasklist')->with('success', 'Task updated successfully!');
+        }
 
-        return redirect()->route('tasklist')->with('success', 'Task updated successfully!');
+        // Redirect back with an error if save fails
+        return redirect()->back()->with('error', 'Error in updating the task.')->withInput();
     }
+
 
     /**
      * Assign task to logged-in user

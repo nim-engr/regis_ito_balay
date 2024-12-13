@@ -51,11 +51,25 @@
                                             <div class="text-danger">{{ $message }}</div>
                                         @enderror
 
-
-                        <div class="form-group">
-                            <label for="customFile1" class="form-label custom-file-input">Attachment Files (Optional)</label>
-                            <input class="form-control" type="file" id="file" id="file_attach">
-                        </div>
+                                        <div class="form-group">
+                                            <label for="file" class="form-label">Attach File <i>(MAX 2MB)</i></label>
+                                            <input type="file" name="file" id="file" class="form-control" for="file">
+                                                <!-- Display previously uploaded file or default placeholder -->
+                                                    <i>
+                                                    @if(isset($task->file_path) && $task->file_path)
+                                                        <div class="mb-2">
+                                                            <a href="{{ asset('storage/' . $task->file_path) }}" target="_blank" class="btn btn-link ">
+                                                                Previous File: {{ $task->file_name ?? 'File' }}
+                                                            </a>
+                                                        </div>
+                                                    @endif
+                                                </span>
+                                            </label>
+                                            <input type="file" name="file" id="file" class="form-control d-none" onchange="updateFilePlaceholder(this)">
+                                            @error('file')
+                                                <div class="text-danger">{{ $message }}</div>
+                                            @enderror
+                                        </div>
 
                         <div class="form-group">
                             <div class="form-group">
