@@ -149,44 +149,7 @@
                                                       </a>
                                                   </form>
 
-                                                  <!-- JavaScript -->
-                                                  <script>
-                                                      const swalWithBootstrapButtons = Swal.mixin({
-                                                          customClass: {
-                                                              confirmButton: "btn btn-success mx-2",
-                                                              cancelButton: "btn btn-danger mx-2"
-                                                          },
-                                                          buttonsStyling: false
-                                                      });
 
-                                                      function confirmDelete(taskId) {
-                                                          swalWithBootstrapButtons.fire({
-                                                                title: "Delete",
-                                                                text: "You won't be able to revert this!",
-                                                                icon: "warning",
-                                                                showCancelButton: true,
-                                                                confirmButtonText: "Yes, delete it!",
-                                                                cancelButtonText: "No, cancel!",
-                                                                reverseButtons: false
-                                                          }).then((result) => {
-                                                              if (result.isConfirmed) {
-                                                                  // Ensure form exists before submission
-                                                                  const form = document.getElementById(`delete-task-form-${taskId}`);
-                                                                  if (form) {
-                                                                      form.submit();
-                                                                  } else {
-                                                                      console.error(`Form with ID delete-task-form-${taskId} not found.`);
-                                                                  }
-                                                              } else if (result.dismiss === Swal.DismissReason.cancel) {
-                                                                  swalWithBootstrapButtons.fire({
-                                                                      title: "Cancelled",
-                                                                      text: "Delete Cancelled",
-                                                                      icon: "error"
-                                                                  });
-                                                              }
-                                                          });
-                                                      }
-                                                  </script>
                                                 </div>
                                             </div>
                                         </div>
@@ -495,7 +458,7 @@
                                                   </form>
 
                                                   <!-- JavaScript -->
-                                                  <script>
+                                                  {{-- <script>
                                                       const swalWithBootstrapButtons = Swal.mixin({
                                                           customClass: {
                                                               confirmButton: "btn btn-success mx-2",
@@ -531,7 +494,7 @@
                                                               }
                                                           });
                                                       }
-                                                  </script>
+                                                  </script> --}}
 
                                                                                          </div>
                                             </div>
@@ -668,43 +631,7 @@
                                                   </form>
 
                                                   <!-- JavaScript -->
-                                                  <script>
-                                                      const swalWithBootstrapButtons = Swal.mixin({
-                                                          customClass: {
-                                                              confirmButton: "btn btn-success mx-2",
-                                                              cancelButton: "btn btn-danger mx-2"
-                                                          },
-                                                          buttonsStyling: false
-                                                      });
 
-                                                      function confirmDelete(taskId) {
-                                                          swalWithBootstrapButtons.fire({
-                                                                title: "Delete",
-                                                                text: "You won't be able to revert this!",
-                                                                icon: "warning",
-                                                                showCancelButton: true,
-                                                                confirmButtonText: "Yes, delete it!",
-                                                                cancelButtonText: "No, cancel!",
-                                                                reverseButtons: false
-                                                          }).then((result) => {
-                                                              if (result.isConfirmed) {
-                                                                  // Ensure form exists before submission
-                                                                  const form = document.getElementById(`delete-task-form-${taskId}`);
-                                                                  if (form) {
-                                                                      form.submit();
-                                                                  } else {
-                                                                      console.error(`Form with ID delete-task-form-${taskId} not found.`);
-                                                                  }
-                                                              } else if (result.dismiss === Swal.DismissReason.cancel) {
-                                                                  swalWithBootstrapButtons.fire({
-                                                                      title: "Cancelled",
-                                                                      text: "Delete Cancelled",
-                                                                      icon: "error"
-                                                                  });
-                                                              }
-                                                          });
-                                                      }
-                                                  </script>
                                              </div>
                                             </div>
                                         </div>
