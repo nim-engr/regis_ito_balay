@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateTasksTable extends Migration
+return new class extends Migration
 {
     /**
      * Run the migrations.
@@ -13,24 +13,17 @@ class CreateTasksTable extends Migration
      */
     public function up()
     {
-        Schema::create('tasks', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->string('Task_title', 255);
-            $table->text('Task_desc');
-            $table->unsignedBigInteger('name')->nullable();
-            $table->date('Deadline');
-            $table->enum('status', ['open', 'review', 'progress', 'close'])->default('open');
-            $table->enum('Priority', ['1', '2', '3'])->default('1'); // 1 = Low, 2 = Moderate, 3 = High
-            $table->unsignedBigInteger('created_by')->nullable();
-            $table->string('file_name', 255)->nullable();
-            $table->text('file_path')->nullable();
-            $table->string('file_type', 255)->nullable();
-            $table->timestamp('uploaded_at')->nullable();
-            $table->timestamps();
+        Schema::create('comments', function (Blueprint $table) {
+            $table->id(); // Auto-increment unsigned BIGINT
+            $table->bigInteger('task_id')->unsigned(); // Foreign key for tasks
+            $table->bigInteger('user_id')->unsigned(); // Foreign key for users
+            $table->text('comment_text')->collation('utf8mb4_0900_ai_ci'); // Text column with specific collation
+            $table->timestamp('created_at')->useCurrent(); // Default CURRENT_TIMESTAMP
+            $table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate(); // Default CURRENT_TIMESTAMP and updates automatically
 
-            // Foreign keys
-            $table->foreign('name')->references('id')->on('users')->onDelete('SET NULL')->onUpdate('CASCADE');
-            $table->foreign('created_by')->references('id')->on('users')->onDelete('CASCADE')->onUpdate('CASCADE');
+            // Optionally, add foreign keys
+            // $table->foreign('task_id')->references('id')->on('tasks');
+            // $table->foreign('user_id')->references('id')->on('users');
         });
     }
 
@@ -41,6 +34,6 @@ class CreateTasksTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tasks');
+        Schema::dropIfExists('comments');
     }
-}
+};
