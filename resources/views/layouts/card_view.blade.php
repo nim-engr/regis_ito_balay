@@ -1,7 +1,14 @@
-<div class="row">
-<div class="card-body p-0">
-    <div class="row">
-               <div class="group1-wrap">
+<div class="col-lg-3">
+    <div class="card-transparent mb-0 desk-info">
+        <div class="card-body p-0">
+            <div class="row">
+
+                <div class="group1-wrap">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <h5>Open Task <strong>({{ $task_Active }})</strong></h5>
+                    </div>
+
+                    @foreach ($tasksGrouped->get('open', collect()) as $task)
                     <div class="group" id="group{{ $task->id }}">
                         <div class="col-lg-12 group__item">
                             <div class="card" id="task-card-{{ $task->id }}">
@@ -83,8 +90,6 @@
                                                       });
                                                   }
                                               </script>
-
-
                                             </div>
                                         </div>
                                     </div>
@@ -152,17 +157,14 @@
                                             <i>No files uploaded</i>
                                         @endif
                                     </div>
-
                                 </div>
+
                             </div>
                         </div>
                     </div>
+                @endforeach
 
                 </div>
+
             </div>
-
-        </div>
-            </div>
-
-
 
