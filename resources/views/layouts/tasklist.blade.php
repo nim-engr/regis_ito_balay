@@ -189,7 +189,7 @@
                                             </p>
                                         </div>
                                         <div>
-                                            <a href="{{ asset('storage/' . $task->file_path) }}" target="_blank" class="position-relative">
+                                        <a href="javascript:void(0);" id="task-{{ $task->id }}" class="position-relative">
                                                 <svg class="icon-32" width="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                     <path fill-rule="evenodd" clip-rule="evenodd" d="M19.0714 19.0699C16.0152 22.1263 11.4898 22.7867 7.78642 21.074C7.23971 20.8539
                                                     6.79148 20.676 6.36537 20.676C5.17849 20.683 3.70117 21.8339 2.93336 21.067C2.16555 20.2991 3.31726 18.8206 3.31726 17.6266C3.31726 17.2004
@@ -199,7 +199,68 @@
                                                     <path d="M11.9306 12.4131H11.9396" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
                                                     <path d="M7.92128 12.4131H7.93028" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
                                                 </svg>
-                                                </a>
+                                            </a>
+
+                                            <script>
+     document.addEventListener("DOMContentLoaded", function () {
+        const taskId = "{{ $task->id }}"; // Blade syntax for dynamic task ID
+        const userId = "{{ Auth::id() }}"; // Blade syntax to get the currently authenticated user ID
+        const taskElement = document.getElementById(`task-${taskId}`);
+
+        if (taskElement) {
+            taskElement.addEventListener("click", async function () {
+                const { value: text } = await Swal.fire({
+                    input: "textarea",
+                    inputLabel: "Comment",
+                    inputPlaceholder: "Type your comment here...",
+                    inputAttributes: {
+                        "aria-label": "Type your comment here"
+                    },
+                    showCancelButton: true
+                });
+
+                if (text) {
+                    // Save the comment to the database via AJAX
+                    try {
+                        const response = await fetch("{{ route('save.comment') }}", {
+                            method: "POST",
+                            headers: {
+                                "Content-Type": "application/json",
+                                "X-CSRF-TOKEN": "{{ csrf_token() }}" // Add CSRF token for security
+                            },
+                            body: JSON.stringify({
+                                task_id: taskId,
+                                user_id: userId,
+                                comment_text: text
+                            })
+                        });
+
+                        const result = await response.json();
+                        if (result.success) {
+                            Swal.fire({
+                                title: `Your Comment on Task ID#: ${taskId} (User ID: ${userId})`,
+                                text: text
+                            });
+                        } else {
+                            Swal.fire({
+                                title: "Error",
+                                text: "There was an issue saving your comment.",
+                                icon: "error"
+                            });
+                        }
+                    } catch (error) {
+                        console.error(error);
+                        Swal.fire({
+                            title: "Error",
+                            text: "There was an issue saving your comment.",
+                            icon: "error"
+                        });
+                    }
+                }
+            });
+        }
+    });
+                                            </script>
 
                                             @if(isset($task->file_path) && $task->file_path)
                                                 <a href="{{ asset('storage/' . $task->file_path) }}" target="_blank" class="position-relative">

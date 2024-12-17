@@ -588,7 +588,7 @@
     <script src="{{ asset('assets/js/hope-ui.js ')}}" defer></script>
 
      <!-- Sweet alert Script -->
-
+     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
 <script src="{{ asset('assets/vendor/sortable/Sortable.min.js')}}"></script>
 <script src="{{ asset('assets/js/plugins/kanban.js')}}"></script>
