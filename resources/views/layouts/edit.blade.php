@@ -5,86 +5,88 @@
 <div class="card">
     <div class="card-header d-flex justify-content-between">
         <div class="header-title">
-            <h4 class="card-title">Task Details</h4>
+            <h4 class="card-title">Edit Task</h4>
         </div>
     </div>
-                <form action="{{ route('tasks.update', ['id' => $task->id]) }}" method="POST">
-                    @csrf
-                    @method('PUT')
+    <form action="{{ route('tasks.update', ['id' => $task->id]) }}" method="POST" enctype="multipart/form-data">
+        @csrf
+        @method('PUT')
 
-                    <div class="card-body">
-                        <div class="form-group">
-                            <label class="form-label" for="exampleInputReadonly">Task Name</label>
-                            <input type="text" class="form-control" name="Task_title" id="Task_title" value="{{ $task->Task_title }}">
-                            @error('Task_title')
-                                 <div class="text-danger">{{ $message }}</div>
-                            @enderror
-                        </div>
+        <div class="card-body">
+            <!-- Task Name -->
+            <div class="form-group">
+                <label class="form-label" for="Task_title">Task Name</label>
+                <input type="text" class="form-control" name="Task_title" id="Task_title" value="{{ old('Task_title', $task->Task_title) }}" required>
+                @error('Task_title')
+                    <div class="text-danger">{{ $message }}</div>
+                @enderror
+            </div>
 
-                        <div class="form-group">
-                            <label class="form-label" for="exampleInputReadonly">Task Description</label>
-                            <textarea class="form-control" name="Task_desc" id="Task_desc" value="{{ $task->Task_desc }}">{{ old('Task_desc', $task->Task_desc) }}</textarea>
-                            @error('Task_desc')
-                                <div class="text-danger">{{ $message }}</div>
-                            @enderror
-                        </div>
+            <!-- Task Description -->
+            <div class="form-group">
+                <label class="form-label" for="Task_desc">Task Description</label>
+                <textarea class="form-control" name="Task_desc" id="Task_desc" required>{{ old('Task_desc', $task->Task_desc) }}</textarea>
+                @error('Task_desc')
+                    <div class="text-danger">{{ $message }}</div>
+                @enderror
+            </div>
 
-                        <div>
-                            <div class="form-group">
-                                <label class="form-label" for="name">Priority</label>
-                                <select name="Priority" class="form-select" required>
-                                    <option value="1" {{ old('Priority', $task->Priority) == "1" ? 'selected' : '' }}>Low</option>
-                                    <option value="2" {{ old('Priority', $task->Priority) == "2" ? 'selected' : '' }}>Moderate</option>
-                                    <option value="3" {{ old('Priority', $task->Priority) == "3" ? 'selected' : '' }}>High</option>
-                                </select>
-                                    <!-- Loop through all users -->
-                            <div class="form-group">
-                                <label class="form-label" for="exampleFormControlSelect1">Responsible Person</label>
-                                <select class="form-select" name="name" id="name" id="Resp_person">
-                                    @foreach ($users as $user)
-                                        <option value="{{ $user->id }}" {{ $task->name == $user->id ? 'selected' : '' }}>{{ $user->name }}</option>
-                                        <option value="">Unassign</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                                        @error('user_id')
-                                            <div class="text-danger">{{ $message }}</div>
-                                        @enderror
+            <!-- Priority -->
+            <div class="form-group">
+                <label class="form-label" for="Priority">Priority</label>
+                <select name="Priority" class="form-select" required>
+                    <option value="1" {{ old('Priority', $task->Priority) == "1" ? 'selected' : '' }}>Low</option>
+                    <option value="2" {{ old('Priority', $task->Priority) == "2" ? 'selected' : '' }}>Moderate</option>
+                    <option value="3" {{ old('Priority', $task->Priority) == "3" ? 'selected' : '' }}>High</option>
+                </select>
+                @error('Priority')
+                    <div class="text-danger">{{ $message }}</div>
+                @enderror
+            </div>
 
-                                        <div class="form-group">
-                                            <label for="file" class="form-label">Attach File <i>(MAX 2MB)</i></label>
-                                            <input type="file" name="file" id="file" class="form-control" for="file">
-                                                <!-- Display previously uploaded file or default placeholder -->
-                                                    <i>
-                                                    @if(isset($task->file_path) && $task->file_path)
-                                                        <div class="mb-2">
-                                                            <a href="{{ asset('storage/' . $task->file_path) }}" target="_blank" class="btn btn-link ">
-                                                                Previous File: {{ $task->file_name ?? 'File' }}
-                                                            </a>
-                                                        </div>
-                                                    @endif
-                                                </span>
-                                            </label>
-                                            <input type="file" name="file" id="file" class="form-control d-none" onchange="updateFilePlaceholder(this)">
-                                            @error('file')
-                                                <div class="text-danger">{{ $message }}</div>
-                                            @enderror
-                                        </div>
+            <!-- Responsible Person -->
+            <div class="form-group">
+                <label class="form-label" for="name">Responsible Person</label>
+                <select name="name" class="form-select" id="name">
+                    <option value="">Unassigned</option>
+                    @foreach ($users as $user)
+                        <option value="{{ $user->id }}" {{ old('name', $task->name) == $user->id ? 'selected' : '' }}>{{ $user->name }}</option>
+                    @endforeach
+                </select>
+                @error('name')
+                    <div class="text-danger">{{ $message }}</div>
+                @enderror
+            </div>
 
-                        <div class="form-group">
-                            <div class="form-group">
-                                <label class="form-label" for="exampleInputReadonly">Task Deadline</label>
-                                <input type="date" class="form-control" name="Deadline" id="Deadline" value="{{ $task->Deadline }}">
-                                @error('Deadline')
-                                    <div class="text-danger">{{ $message }}</div>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <button type="submit" class="btn btn-primary">Submit</button>
-                        <button type="button" class="btn btn-danger" onclick="window.history.back()">Cancel</button>
+            <!-- File Upload -->
+            <div class="form-group">
+                <label for="file" class="form-label">Attach File <i>(MAX 2MB)</i></label>
+                <input type="file" name="file" id="file" class="form-control">
+                @if(isset($task->file_path) && $task->file_path)
+                    <div class="mb-2">
+                        <a href="{{ asset('storage/' . $task->file_path) }}" target="_blank" class="btn btn-link">
+                            Previous File: {{ $task->file_name ?? 'View File' }}
+                        </a>
                     </div>
-                </form>
+                @endif
+                @error('file')
+                    <div class="text-danger">{{ $message }}</div>
+                @enderror
+            </div>
+
+            <!-- Deadline -->
+            <div class="form-group">
+                <label class="form-label" for="Deadline">Task Deadline</label>
+                <input type="date" class="form-control" name="Deadline" id="Deadline" value="{{ old('Deadline', $task->Deadline) }}" required>
+                @error('Deadline')
+                    <div class="text-danger">{{ $message }}</div>
+                @enderror
+            </div>
+
+            <!-- Buttons -->
+            <button type="submit" class="btn btn-primary">Submit</button>
+            <button type="button" class="btn btn-danger" onclick="window.history.back()">Cancel</button>
+        </div>
+    </form>
 </div>
 @endsection
-

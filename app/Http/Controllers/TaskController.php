@@ -7,6 +7,7 @@ use App\Models\Task;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use RealRashid\SweetAlert\Facades\Alert;
 
 
 class TaskController extends Controller
@@ -20,7 +21,7 @@ class TaskController extends Controller
             'Task_title' => 'required|string|max:255',
             'Task_desc' => 'required|string',
             'name' => 'nullable|exists:users,id',
-            'file' => 'nullable|file|max:2048', // File size limit (2MB)
+            'file' => 'nullable|file', // File size limit (2MB)
             'Deadline' => 'required|date',
             'Priority' => 'required|in:1,2,3',
         ]);
@@ -95,9 +96,6 @@ class TaskController extends Controller
         return view('layouts.edit', compact('task', 'users'));
     }
 
-    /**
-     * Update a task
-     */
     public function update(Request $request, $id)
     {
         // Validate the input data
@@ -107,49 +105,41 @@ class TaskController extends Controller
             'name' => 'nullable|exists:users,id',
             'Deadline' => 'required|date',
             'Priority' => 'required|in:1,2,3',
-            'file' => 'nullable|file|max:2048', // Optional file validation
+            'file' => 'nullable|file',
         ]);
 
-        // Retrieve the task by ID or fail
-        $task = Task::findOrFail($id);
 
-        // Update basic task fields
+        $task = Task::findOrFail($id);
         $task->Task_title = $request->Task_title;
         $task->Task_desc = $request->Task_desc;
         $task->name = $request->input('name');
         $task->Deadline = $request->Deadline;
         $task->Priority = $request->Priority;
 
-        // Handle file upload
-        if ($request->hasFile('file')) {
-            // Check if the task has an existing file and delete it
-            if (!empty($task->file_path) && Storage::exists('public/' . $task->file_path)) {
-                Storage::delete('public/' . $task->file_path);
+
+        if ($request->hasFile('file')) { // Store the new file
+            if (!empty($task->file_path) && Storage::disk('public')->exists($task->file_path)) {
+                Storage::disk('public')->delete($task->file_path);
             }
 
-            // Store the new file
-            $uploadedFile = $request->file('file');
+            if ($request->hasFile('file')) {
+            } else {
+                dd('No file uploaded');
+            }
+
+            $uploadedFile = $request->file('file'); // Store the new file
             $filePath = $uploadedFile->store('tasks', 'public'); // Store in the 'tasks' folder under 'public'
 
-            // Update task file details
             $task->file_name = $uploadedFile->getClientOriginalName(); // Original file name
             $task->file_path = $filePath; // Path to the stored file
             $task->file_type = $uploadedFile->getClientMimeType(); // File type (e.g., image/jpeg)
-        }
-
-        // Save the updated task
+       }
         if ($task->save()) {
             return redirect()->route('tasklist')->with('success', 'Task updated successfully!');
         }
-
-        // Redirect back with an error if save fails
         return redirect()->back()->with('error', 'Error in updating the task.')->withInput();
     }
 
-
-    /**
-     * Assign task to logged-in user
-     */
     public function takeTask($id)
     {
         $task = Task::findOrFail($id);
@@ -164,9 +154,6 @@ class TaskController extends Controller
         return redirect()->back()->with('error', 'Task is already assigned.');
     }
 
-    /**
-     * Delete a task
-     */
     public function destroy($id)
     {
         $task = Task::findOrFail($id);
