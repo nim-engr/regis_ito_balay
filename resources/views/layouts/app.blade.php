@@ -358,7 +358,7 @@
           </div>          <!-- Nav Header Component End -->
         <!--Nav End-->
       </div>
-      <div class="conatiner-fluid content-inner mt-n5 py-0">
+      <div class="container-fluid content-inner mt-n5 py-0">
 
         {{-- content start --}}
         @yield('task')
