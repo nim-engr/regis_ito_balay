@@ -8,6 +8,7 @@ use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use RealRashid\SweetAlert\Facades\Alert;
+use App\Models\Comment;
 
 
 class TaskController extends Controller
@@ -152,6 +153,37 @@ class TaskController extends Controller
         }
 
         return redirect()->back()->with('error', 'Task is already assigned.');
+    }
+
+    public function saveComment(Request $request)
+    {
+        // Validate the incoming data
+        $validated = $request->validate([
+            'task_id' => 'required|integer',
+            'user_id' => 'required|integer',
+            'comment_text' => 'required|string',
+        ]);
+
+        // Create the new comment
+        try {
+            $comment = new Comment();
+            $comment->task_id = $validated['task_id'];
+            $comment->user_id = $validated['user_id'];
+            $comment->comment_text = $validated['comment_text']; // Ensure the field name is correct
+            $comment->save();
+
+            // Return a success response
+            return response()->json([
+                'success' => true,
+                'message' => 'Comment saved successfully!',
+            ]);
+        } catch (\Exception $e) {
+            // If an error occurs, return a failure response
+            return response()->json([
+                'success' => false,
+                'message' => 'Error saving comment: ' . $e->getMessage(),
+            ]);
+        }
     }
 
     public function destroy($id)

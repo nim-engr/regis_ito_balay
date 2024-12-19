@@ -49,6 +49,7 @@ return new class extends Migration
             $table->foreign('created_by')->references('id')->on('users')->onDelete('CASCADE')->onUpdate('CASCADE');
         });
     }
+    
 
     /**
      * Reverse the migrations.

@@ -28,8 +28,11 @@
       <!-- RTL Css -->
       <link rel="stylesheet" href="{{ asset('assets/css/rtl.min.css') }}">
 
-      <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+      <!---SweetAlert2-->
+      <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.6.8/dist/sweetalert2.min.css" rel="stylesheet">
 
+      <!--Jquery-->
+      <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 
 
@@ -588,7 +591,7 @@
     <script src="{{ asset('assets/js/hope-ui.js ')}}" defer></script>
 
      <!-- Sweet alert Script -->
-
+     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.6.8/dist/sweetalert2.min.js"></script>
 
 <script src="{{ asset('assets/vendor/sortable/Sortable.min.js')}}"></script>
 <script src="{{ asset('assets/js/plugins/kanban.js')}}"></script>

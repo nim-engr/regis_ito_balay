@@ -202,35 +202,55 @@
                                             </a>
 
                                             <script>
-                                                // Ensure the script runs after the DOM is loaded
-                                                document.addEventListener("DOMContentLoaded", function () {
-                                                    const taskId = "{{ $task->id }}"; // syntax for dynamic task ID
-                                                    const userId = "{{ Auth::id() }}"; // syntax to get the currently authenticated user ID
-                                                    const taskElement = document.getElementById(`task-${taskId}`);
+                                                    document.addEventListener("DOMContentLoaded", function () {
+                                                        const taskId = "{{ $task->id }}"; // Dynamic task ID from Laravel
+                                                        const userId = "{{ Auth::id() }}"; // Current authenticated user ID
+                                                        const csrfToken = "{{ csrf_token() }}"; // CSRF Token for Laravel
 
-                                                    // Add event listener for the task element click
-                                                    taskElement.addEventListener("click", async function () {
-                                                        // Trigger SweetAlert input dialog
-                                                        const { value: text } = await Swal.fire({
-                                                            input: "textarea",
-                                                            inputLabel: "Comment",
-                                                            inputPlaceholder: "Type your comment here...",
-                                                            inputAttributes: {
-                                                                "aria-label": "Type your comment here"
-                                                            },
-                                                            showCancelButton: true
-                                                        });
-
-                                                        // If the user enters text and clicks "OK"
-                                                        if (text) {
-                                                            Swal.fire({
-                                                                title: `Your Comment on Task ID#: ${taskId} (User ID: ${userId})`, 
-                                                                text: text
+                                                        document.querySelector(`#task-${taskId}`).addEventListener('click', async function () {
+                                                            const { value: text } = await Swal.fire({
+                                                                input: "textarea",
+                                                                inputLabel: "Message",
+                                                                inputPlaceholder: "Type your message here...",
+                                                                inputAttributes: {
+                                                                    "aria-label": "Type your message here"
+                                                                },
+                                                                showCancelButton: true
                                                             });
-                                                        }
+
+                                                            if (text) {
+                                                                // Send AJAX request to save the comment
+                                                                try {
+                                                                    const response = await fetch("{{ route('save.comment') }}", {
+                                                                        method: "POST",
+                                                                        headers: {
+                                                                            "Content-Type": "application/json",
+                                                                            "X-CSRF-TOKEN": csrfToken
+                                                                        },
+                                                                        body: JSON.stringify({
+                                                                            task_id: taskId,
+                                                                            user_id: userId,
+                                                                            comment_text: text
+                                                                        })
+                                                                    });
+
+                                                                    const result = await response.json();
+
+                                                                    if (result.success) {
+                                                                        Swal.fire("Success", result.message, "success");
+                                                                    } else {
+                                                                        Swal.fire("Error", result.message, "error");
+                                                                    }
+                                                                } catch (error) {
+                                                                    Swal.fire("Error", "There was an error saving your comment.", "error");
+                                                                }
+                                                            }
+                                                        });
                                                     });
-                                                });
-                                            </script>
+                                        </script>
+
+
+
 
                                             @if(isset($task->file_path) && $task->file_path)
                                                 <a href="{{ asset('storage/' . $task->file_path) }}" target="_blank" class="position-relative">

@@ -27,6 +27,6 @@ Route::delete('/tasks/{id}', [TaskController::class, 'destroy'])->name('tasks.de
 Route::post('/tasks/{id}/duplicate', [TaskController::class, 'duplicate'])->name('tasks.duplicate');
 Route::delete('/tasks/{id}', [TaskController::class, 'destroy'])->name('tasks.destroy');
 
-
+Route::post('/save-comment', [TaskController::class, 'saveComment'])->name('save.comment');//save comment
 
 require __DIR__.'/auth.php';
