@@ -26,6 +26,8 @@ Route::post('/tasks/{id}/take', [TaskController::class, 'takeTask'])->name('task
 Route::delete('/tasks/{id}', [TaskController::class, 'destroy'])->name('tasks.destroy');
 Route::post('/tasks/{id}/duplicate', [TaskController::class, 'duplicate'])->name('tasks.duplicate');
 Route::delete('/tasks/{id}', [TaskController::class, 'destroy'])->name('tasks.destroy');
+Route::post('/update-task-status', [TaskController::class, 'updateStatus'])->name('task.updateStatus');
+
 
 Route::post('/save-comment', [TaskController::class, 'saveComment'])->name('save.comment');//save comment
 

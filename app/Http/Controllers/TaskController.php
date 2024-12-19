@@ -214,4 +214,15 @@ class TaskController extends Controller
 
         return redirect()->back()->with('success', 'Task duplicated successfully!');
     }
+    public function updateStatus(Request $request)
+    {
+        $task = Task::find($request->id);
+        if ($task)
+            {
+            $task->status = $request->status;
+            $task->save();
+            return response()->json(['success' => true]);
+        }
+        return response()->json(['success' => false, 'message' => 'Task not found']);
+    }
 }
