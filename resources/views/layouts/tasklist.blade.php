@@ -7,7 +7,7 @@
             <div class="card-body">
                 <div class="d-flex align-items-center justify-content-between flex-wrap">
                     <p class="mb-md-0 mb-2 d-flex align-items-center">
-                        <svg  width="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="me-2 icon-20">
+                        <svg width="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="me-2 icon-20">
                             <path fill-rule="evenodd" clip-rule="evenodd" d="M4.56517 3C3.70108 3 3 3.71286 3 4.5904V5.52644C3 6.17647 3.24719 6.80158 3.68936 7.27177L8.5351 12.4243L8.53723 12.4211C9.47271 13.3788 9.99905 14.6734 9.99905 16.0233V20.5952C9.99905 20.9007 10.3187 21.0957 10.584 20.9516L13.3436 19.4479C13.7602 19.2204 14.0201 18.7784 14.0201 18.2984V16.0114C14.0201 14.6691 14.539 13.3799 15.466 12.4243L20.3117 7.27177C20.7528 6.80158 21 6.17647 21 5.52644V4.5904C21 3.71286 20.3 3 19.4359 3H4.56517Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
                         </svg>
                         Filter by task name...
@@ -33,14 +33,14 @@
                             </span>
                             <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton05" style="">
                                 <a class="dropdown-item" href="#">
-                                    <svg  width="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="me-2 icon-20">
+                                    <svg width="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="me-2 icon-20">
                                         <path fill-rule="evenodd" clip-rule="evenodd" d="M16.3345 2.75024H7.66549C4.64449 2.75024 2.75049 4.88924 2.75049 7.91624V16.0842C2.75049 19.1112 4.63549 21.2502 7.66549 21.2502H16.3335C19.3645 21.2502 21.2505 19.1112 21.2505 16.0842V7.91624C21.2505 4.88924 19.3645 2.75024 16.3345 2.75024Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
                                         <path d="M8.43994 12.0002L10.8139 14.3732L15.5599 9.6272" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
                                     </svg>
                                     Status
                                 </a>
                                 <a class="dropdown-item" href="#">
-                                    <svg  width="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="me-2 icon-20">
+                                    <svg width="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="me-2 icon-20">
                                         <path fill-rule="evenodd" clip-rule="evenodd" d="M9.59151 15.2068C13.2805 15.2068 16.4335 15.7658 16.4335 17.9988C16.4335 20.2318 13.3015 20.8068 9.59151 20.8068C5.90151 20.8068 2.74951 20.2528 2.74951 18.0188C2.74951 15.7848 5.88051 15.2068 9.59151 15.2068Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
                                         <path fill-rule="evenodd" clip-rule="evenodd" d="M9.59157 12.0198C7.16957 12.0198 5.20557 10.0568 5.20557 7.63476C5.20557 5.21276 7.16957 3.24976 9.59157 3.24976C12.0126 3.24976 13.9766 5.21276 13.9766 7.63476C13.9856 10.0478 12.0356 12.0108 9.62257 12.0198H9.59157Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
                                         <path d="M16.4829 10.8815C18.0839 10.6565 19.3169 9.28253 19.3199 7.61953C19.3199 5.98053 18.1249 4.62053 16.5579 4.36353" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
@@ -49,7 +49,7 @@
                                     Assignee
                                 </a>
                                 <a class="dropdown-item" href="#">
-                                    <svg  width="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="me-2 icon-20">
+                                    <svg width="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="me-2 icon-20">
                                         <path d="M7.24512 14.7815L10.2383 10.8914L13.6524 13.5733L16.5815 9.79297" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
                                         <circle cx="19.9954" cy="4.20027" r="1.9222" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></circle>
                                         <path d="M14.9248 3.12012H7.65704C4.6456 3.12012 2.77832 5.25284 2.77832 8.26428V16.3467C2.77832 19.3581 4.60898 21.4817 7.65704 21.4817H16.2612C19.2726 21.4817 21.1399 19.3581 21.1399 16.3467V9.30776" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
@@ -57,7 +57,7 @@
                                     Priority
                                 </a>
                                 <a class="dropdown-item" href="#">
-                                    <svg  width="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="me-2 icon-20">
+                                    <svg width="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="me-2 icon-20">
                                         <path d="M13.8496 4.25024V6.67024" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
                                         <path d="M13.8496 17.76V19.784" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
                                         <path d="M13.8496 14.3247V9.50366" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
@@ -66,7 +66,7 @@
                                     Tags
                                 </a>
                                 <a class="dropdown-item" href="#">
-                                    <svg  width="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="me-2 icon-20">
+                                    <svg width="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="me-2 icon-20">
                                         <path d="M3.09277 9.40421H20.9167" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
                                         <path d="M16.442 13.3097H16.4512" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
                                         <path d="M12.0045 13.3097H12.0137" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
@@ -81,7 +81,7 @@
                                     Due Date
                                 </a>
                                 <a class="dropdown-item" href="#">
-                                    <svg  width="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="me-2 icon-20">
+                                    <svg width="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="me-2 icon-20">
                                         <path d="M14.3955 9.59497L9.60352 14.387" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
                                         <path d="M14.3971 14.3898L9.60107 9.59277" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
                                         <path fill-rule="evenodd" clip-rule="evenodd" d="M16.3345 2.75024H7.66549C4.64449 2.75024 2.75049 4.88924 2.75049 7.91624V16.0842C2.75049 19.1112 4.63549 21.2502 7.66549 21.2502H16.3335C19.3645 21.2502 21.2505 19.1112 21.2505 16.0842V7.91624C21.2505 4.88924 19.3645 2.75024 16.3345 2.75024Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
@@ -111,7 +111,7 @@
                                         <div class="d-grid grid-flow-col align-items-center justify-content-between mb-2">
                                             <div class="d-flex justify-content-between align-items-center">
                                                 <p class="mb-0"><strong>Task Title: &nbsp;</strong></p>
-                                                 <p class="mb-0" id="task-title-{{ $task->id }}">{{ $task->Task_title }}</p>
+                                                <p class="mb-0" id="task-title-{{ $task->id }}">{{ $task->Task_title }}</p>
                                             </div>
                                             @include('layouts.dropdown')
                                         </div>
@@ -121,7 +121,7 @@
                                             <p class="mb-0">
                                                 <strong>Deadline:</strong>
                                             </p>
-                                                <span class="align-content-right" id="task-deadline-{{ $task->id }}">{{ $task->Deadline }}</span>
+                                            <span class="align-content-right" id="task-deadline-{{ $task->id }}">{{ $task->Deadline }}</span>
                                         </div>
                                         <div class="mb-0 d-flex justify-content-between align-items-center">
                                             <p><strong>Requested by:</strong></p>
@@ -130,23 +130,23 @@
                                         <div class="mb-0 d-flex justify-content-between align-items-center">
                                             <p><strong>Responsible Person:</strong></p>
                                             @if ($task->name)
-                                                <p class="justify-content-between align-content-right">{{ $task->user->name }}</p>
+                                            <p class="justify-content-between align-content-right">{{ $task->user->name }}</p>
                                             @else
-                                                <form action="{{ route('tasks.take', $task->id) }}" method="POST">
-                                                    @csrf
-                                                    <button type="submit" class="btn btn-primary btn-sm justify-content-between align-content-right ">Take Task</button>
-                                                </form>
+                                            <form action="{{ route('tasks.take', $task->id) }}" method="POST">
+                                                @csrf
+                                                <button type="submit" class="btn btn-primary btn-sm justify-content-between align-content-right ">Take Task</button>
+                                            </form>
                                             @endif
                                         </div>
                                         <div class="d-flex justify-content-between align-items-center mb-3">
                                             <p class="mb-0"><strong>Priority:</strong></p>
                                             <p class="mb-0">
                                                 @if ($task->Priority == "1")
-                                                    <span id="task-Priority-{{ $task->id }}" class="badge rounded-pill bg-success">Low</span>
+                                                <span id="task-Priority-{{ $task->id }}" class="badge rounded-pill bg-success">Low</span>
                                                 @elseif ($task->Priority == "2")
-                                                    <span id="task-Priority-{{ $task->id }}" class="badge rounded-pill bg-warning">Moderate</span>
+                                                <span id="task-Priority-{{ $task->id }}" class="badge rounded-pill bg-warning">Moderate</span>
                                                 @elseif ($task->Priority == "3")
-                                                    <span id="task-Priority-{{ $task->id }}" class="badge rounded-pill bg-danger">High</span>
+                                                <span id="task-Priority-{{ $task->id }}" class="badge rounded-pill bg-danger">High</span>
                                                 @endif
                                             </p>
                                         </div>
@@ -156,7 +156,7 @@
                                 </div>
                             </div>
                         </div>
-                    @endforeach
+                        @endforeach
                     </div>
                 </div>
             </div>
@@ -171,14 +171,14 @@
                             <h5>Ongoing Task <strong>({{ $progress_Active }})</strong></h5>
                         </div>
                         <div class="group" id="progress">
-                        @foreach ($tasksGrouped->get('progress', collect()) as $task)
+                            @foreach ($tasksGrouped->get('progress', collect()) as $task)
                             <div class="col-lg-12 group__item">
                                 <div class="card" id="task-card-{{ $task->id }}">
                                     <div class="card-body">
                                         <div class="d-grid grid-flow-col align-items-center justify-content-between mb-2">
                                             <div class="d-flex justify-content-between align-items-center">
                                                 <p class="mb-0"><strong>Task Title: &nbsp;</strong></p>
-                                                 <p class="mb-0" id="task-title-{{ $task->id }}">{{ $task->Task_title }}</p>
+                                                <p class="mb-0" id="task-title-{{ $task->id }}">{{ $task->Task_title }}</p>
                                             </div>
                                             @include('layouts.dropdown')
                                         </div>
@@ -188,7 +188,7 @@
                                             <p class="mb-0">
                                                 <strong>Deadline:</strong>
                                             </p>
-                                                <span class="align-content-right" id="task-deadline-{{ $task->id }}">{{ $task->Deadline }}</span>
+                                            <span class="align-content-right" id="task-deadline-{{ $task->id }}">{{ $task->Deadline }}</span>
                                         </div>
                                         <div class="mb-0 d-flex justify-content-between align-items-center">
                                             <p><strong>Requested by:</strong></p>
@@ -197,23 +197,23 @@
                                         <div class="mb-0 d-flex justify-content-between align-items-center">
                                             <p><strong>Responsible Person:</strong></p>
                                             @if ($task->name)
-                                                <p class="justify-content-between align-content-right">{{ $task->user->name }}</p>
+                                            <p class="justify-content-between align-content-right">{{ $task->user->name }}</p>
                                             @else
-                                                <form action="{{ route('tasks.take', $task->id) }}" method="POST">
-                                                    @csrf
-                                                    <button type="submit" class="btn btn-primary btn-sm justify-content-between align-content-right ">Take Task</button>
-                                                </form>
+                                            <form action="{{ route('tasks.take', $task->id) }}" method="POST">
+                                                @csrf
+                                                <button type="submit" class="btn btn-primary btn-sm justify-content-between align-content-right ">Take Task</button>
+                                            </form>
                                             @endif
                                         </div>
                                         <div class="d-flex justify-content-between align-items-center mb-3">
                                             <p class="mb-0"><strong>Priority:</strong></p>
                                             <p class="mb-0">
                                                 @if ($task->Priority == "1")
-                                                    <span id="task-Priority-{{ $task->id }}" class="badge rounded-pill bg-success">Low</span>
+                                                <span id="task-Priority-{{ $task->id }}" class="badge rounded-pill bg-success">Low</span>
                                                 @elseif ($task->Priority == "2")
-                                                    <span id="task-Priority-{{ $task->id }}" class="badge rounded-pill bg-warning">Moderate</span>
+                                                <span id="task-Priority-{{ $task->id }}" class="badge rounded-pill bg-warning">Moderate</span>
                                                 @elseif ($task->Priority == "3")
-                                                    <span id="task-Priority-{{ $task->id }}" class="badge rounded-pill bg-danger">High</span>
+                                                <span id="task-Priority-{{ $task->id }}" class="badge rounded-pill bg-danger">High</span>
                                                 @endif
                                             </p>
                                         </div>
@@ -222,9 +222,9 @@
                                 </div>
                             </div>
 
-                    @endforeach
+                            @endforeach
+                        </div>
                     </div>
-                </div>
                 </div>
             </div>
         </div>
@@ -238,14 +238,14 @@
                             <h5>Under Review <strong>({{ $review_Active }})</strong></h5>
                         </div>
                         <div class="group" id="review">
-                        @foreach ($tasksGrouped->get('review', collect()) as $task)
+                            @foreach ($tasksGrouped->get('review', collect()) as $task)
                             <div class="col-lg-12 group__item">
                                 <div class="card" id="task-card-{{ $task->id }}">
                                     <div class="card-body">
                                         <div class="d-grid grid-flow-col align-items-center justify-content-between mb-2">
                                             <div class="d-flex justify-content-between align-items-center">
                                                 <p class="mb-0"><strong>Task Title: &nbsp;</strong></p>
-                                                 <p class="mb-0" id="task-title-{{ $task->id }}">{{ $task->Task_title }}</p>
+                                                <p class="mb-0" id="task-title-{{ $task->id }}">{{ $task->Task_title }}</p>
                                             </div>
                                             @include('layouts.dropdown')
                                         </div>
@@ -255,7 +255,7 @@
                                             <p class="mb-0">
                                                 <strong>Deadline:</strong>
                                             </p>
-                                                <span class="align-content-right" id="task-deadline-{{ $task->id }}">{{ $task->Deadline }}</span>
+                                            <span class="align-content-right" id="task-deadline-{{ $task->id }}">{{ $task->Deadline }}</span>
                                         </div>
                                         <div class="mb-0 d-flex justify-content-between align-items-center">
                                             <p><strong>Requested by:</strong></p>
@@ -264,23 +264,23 @@
                                         <div class="mb-0 d-flex justify-content-between align-items-center">
                                             <p><strong>Responsible Person:</strong></p>
                                             @if ($task->name)
-                                                <p class="justify-content-between align-content-right">{{ $task->user->name }}</p>
+                                            <p class="justify-content-between align-content-right">{{ $task->user->name }}</p>
                                             @else
-                                                <form action="{{ route('tasks.take', $task->id) }}" method="POST">
-                                                    @csrf
-                                                    <button type="submit" class="btn btn-primary btn-sm justify-content-between align-content-right ">Take Task</button>
-                                                </form>
+                                            <form action="{{ route('tasks.take', $task->id) }}" method="POST">
+                                                @csrf
+                                                <button type="submit" class="btn btn-primary btn-sm justify-content-between align-content-right ">Take Task</button>
+                                            </form>
                                             @endif
                                         </div>
                                         <div class="d-flex justify-content-between align-items-center mb-3">
                                             <p class="mb-0"><strong>Priority:</strong></p>
                                             <p class="mb-0">
                                                 @if ($task->Priority == "1")
-                                                    <span id="task-Priority-{{ $task->id }}" class="badge rounded-pill bg-success">Low</span>
+                                                <span id="task-Priority-{{ $task->id }}" class="badge rounded-pill bg-success">Low</span>
                                                 @elseif ($task->Priority == "2")
-                                                    <span id="task-Priority-{{ $task->id }}" class="badge rounded-pill bg-warning">Moderate</span>
+                                                <span id="task-Priority-{{ $task->id }}" class="badge rounded-pill bg-warning">Moderate</span>
                                                 @elseif ($task->Priority == "3")
-                                                    <span id="task-Priority-{{ $task->id }}" class="badge rounded-pill bg-danger">High</span>
+                                                <span id="task-Priority-{{ $task->id }}" class="badge rounded-pill bg-danger">High</span>
                                                 @endif
                                             </p>
                                         </div>
@@ -289,9 +289,9 @@
                                 </div>
                             </div>
 
-                    @endforeach
+                            @endforeach
+                        </div>
                     </div>
-                </div>
                 </div>
             </div>
         </div>
@@ -305,14 +305,14 @@
                             <h5>Finished <strong>({{ $close_Active }})</strong></h5>
                         </div>
                         <div class="group" id="close">
-                        @foreach ($tasksGrouped->get('close', collect()) as $task)
+                            @foreach ($tasksGrouped->get('close', collect()) as $task)
                             <div class="col-lg-12 group__item">
                                 <div class="card" id="task-card-{{ $task->id }}">
                                     <div class="card-body">
                                         <div class="d-grid grid-flow-col align-items-center justify-content-between mb-2">
                                             <div class="d-flex justify-content-between align-items-center">
                                                 <p class="mb-0"><strong>Task Title: &nbsp;</strong></p>
-                                                 <p class="mb-0" id="task-title-{{ $task->id }}">{{ $task->Task_title }}</p>
+                                                <p class="mb-0" id="task-title-{{ $task->id }}">{{ $task->Task_title }}</p>
                                             </div>
                                             @include('layouts.dropdown')
                                         </div>
@@ -322,7 +322,7 @@
                                             <p class="mb-0">
                                                 <strong>Deadline:</strong>
                                             </p>
-                                                <span class="align-content-right" id="task-deadline-{{ $task->id }}">{{ $task->Deadline }}</span>
+                                            <span class="align-content-right" id="task-deadline-{{ $task->id }}">{{ $task->Deadline }}</span>
                                         </div>
                                         <div class="mb-0 d-flex justify-content-between align-items-center">
                                             <p><strong>Requested by:</strong></p>
@@ -331,23 +331,23 @@
                                         <div class="mb-0 d-flex justify-content-between align-items-center">
                                             <p><strong>Responsible Person:</strong></p>
                                             @if ($task->name)
-                                                <p class="justify-content-between align-content-right">{{ $task->user->name }}</p>
+                                            <p class="justify-content-between align-content-right">{{ $task->user->name }}</p>
                                             @else
-                                                <form action="{{ route('tasks.take', $task->id) }}" method="POST">
-                                                    @csrf
-                                                    <button type="submit" class="btn btn-primary btn-sm justify-content-between align-content-right ">Take Task</button>
-                                                </form>
+                                            <form action="{{ route('tasks.take', $task->id) }}" method="POST">
+                                                @csrf
+                                                <button type="submit" class="btn btn-primary btn-sm justify-content-between align-content-right ">Take Task</button>
+                                            </form>
                                             @endif
                                         </div>
                                         <div class="d-flex justify-content-between align-items-center mb-3">
                                             <p class="mb-0"><strong>Priority:</strong></p>
                                             <p class="mb-0">
                                                 @if ($task->Priority == "1")
-                                                    <span id="task-Priority-{{ $task->id }}" class="badge rounded-pill bg-success">Low</span>
+                                                <span id="task-Priority-{{ $task->id }}" class="badge rounded-pill bg-success">Low</span>
                                                 @elseif ($task->Priority == "2")
-                                                    <span id="task-Priority-{{ $task->id }}" class="badge rounded-pill bg-warning">Moderate</span>
+                                                <span id="task-Priority-{{ $task->id }}" class="badge rounded-pill bg-warning">Moderate</span>
                                                 @elseif ($task->Priority == "3")
-                                                    <span id="task-Priority-{{ $task->id }}" class="badge rounded-pill bg-danger">High</span>
+                                                <span id="task-Priority-{{ $task->id }}" class="badge rounded-pill bg-danger">High</span>
                                                 @endif
                                             </p>
                                         </div>
@@ -356,15 +356,15 @@
                                 </div>
                             </div>
 
-                    @endforeach
-                    </div>
+                            @endforeach
+                        </div>
 
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 
 
 
-@endsection()
+    @endsection()
