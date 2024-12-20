@@ -155,6 +155,29 @@ class TaskController extends Controller
         return redirect()->back()->with('error', 'Task is already assigned.');
     }
 
+    public function getComments(Request $request)
+    {
+        $request->validate([
+            'task_id' => 'required|exists:tasks,id',
+        ]);
+
+        $comments = Comment::where('task_id', $request->task_id)
+            ->with('user:id,name') // Assuming your User model has a 'name' field
+            ->get()
+            ->map(function ($comment) {
+                return [
+                    'user_id' => $comment->user->name,
+                    'comment_text' => $comment->comment_text,
+                ];
+            });
+
+        return response()->json([
+            'success' => true,
+            'comments' => $comments,
+        ]);
+    }
+
+
     public function saveComment(Request $request)
     {
         // Validate the incoming data

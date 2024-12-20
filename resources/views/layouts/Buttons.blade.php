@@ -12,54 +12,85 @@
     </a>
 
     <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            const taskId = "{{ $task->id }}"; // Dynamic task ID from Laravel
-            const userId = "{{ Auth::id() }}"; // Current authenticated user ID
-            const csrfToken = "{{ csrf_token() }}"; // CSRF Token for Laravel
+    document.addEventListener("DOMContentLoaded", function() {
+        const taskId = "{{ $task->id }}"; // Dynamic task ID from Laravel
+        const userId = "{{ Auth::id() }}"; // Current authenticated user ID
+        const csrfToken = "{{ csrf_token() }}"; // CSRF Token for Laravel
 
-            document.querySelector(`#task-${taskId}`).addEventListener('click', async function() {
-                const {
-                    value: text
-                } = await Swal.fire({
-                    input: "textarea",
-                    inputLabel: "Message",
-                    inputPlaceholder: "Type your message here...",
-                    inputAttributes: {
-                        "aria-label": "Type your message here"
+        document.querySelector(`#task-${taskId}`).addEventListener('click', async function() {
+            // Fetch existing comments for the task
+            let commentsHtml = "No comments yet.";
+            try {
+                const response = await fetch("{{ route('get.comments') }}", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "X-CSRF-TOKEN": csrfToken
                     },
-                    showCancelButton: true
+                    body: JSON.stringify({ task_id: taskId })
                 });
 
-                if (text) {
-                    // Send AJAX request to save the comment
-                    try {
-                        const response = await fetch("{{ route('save.comment') }}", {
-                            method: "POST",
-                            headers: {
-                                "Content-Type": "application/json",
-                                "X-CSRF-TOKEN": csrfToken
-                            },
-                            body: JSON.stringify({
-                                task_id: taskId,
-                                user_id: userId,
-                                comment_text: text
-                            })
-                        });
+                const result = await response.json();
+                if (result.success && result.comments.length > 0) {
+                    commentsHtml = result.comments
+                        .map(comment => `User ${comment.user_id}: ${comment.comment_text}`)
+                        .join("<br>");
+                }
+            } catch (error) {
+                commentsHtml = "Error loading comments.";
+            }
 
-                        const result = await response.json();
-
-                        if (result.success) {
-                            Swal.fire("Success", result.message, "success");
-                        } else {
-                            Swal.fire("Error", result.message, "error");
-                        }
-                    } catch (error) {
-                        Swal.fire("Error", "There was an error saving your comment.", "error");
-                    }
+            // Display the SweetAlert2 modal
+            const { value: text } = await Swal.fire({
+                title: "New Comment",
+                html: `
+                    <div style="text-align: left; margin-bottom: 10px;">
+                        <strong>Previous Comments:</strong>
+                        <div style="max-height: 150px; overflow-y: auto; border: 1px solid #ccc; padding: 10px; margin-bottom: 10px;">
+                            ${commentsHtml}
+                        </div>
+                        <textarea id="new-comment" placeholder="Type your message here..." aria-label="Type your message here" style="width: 100%; height: 100px; border: 1px solid #ccc; border-radius: 4px;"></textarea>
+                    </div>
+                `,
+                showCancelButton: true,
+                focusConfirm: false,
+                preConfirm: () => {
+                    const newComment = document.getElementById("new-comment").value;
+                    return newComment ? newComment : null;
                 }
             });
+
+            if (text) {
+                // Send AJAX request to save the new comment
+                try {
+                    const saveResponse = await fetch("{{ route('save.comment') }}", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                            "X-CSRF-TOKEN": csrfToken
+                        },
+                        body: JSON.stringify({
+                            task_id: taskId,
+                            user_id: userId,
+                            comment_text: text
+                        })
+                    });
+
+                    const saveResult = await saveResponse.json();
+
+                    if (saveResult.success) {
+                        Swal.fire("Success", saveResult.message, "success");
+                    } else {
+                        Swal.fire("Error", saveResult.message, "error");
+                    }
+                } catch (error) {
+                    Swal.fire("Error", "There was an error saving your comment.", "error");
+                }
+            }
         });
-    </script>
+    });
+</script>
+
 
     @if(isset($task->file_path) && $task->file_path)
     <a href="{{ asset('storage/' . $task->file_path) }}" target="_blank" class="position-relative">
