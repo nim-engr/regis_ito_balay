@@ -157,24 +157,23 @@ class TaskController extends Controller
 
     public function getComments(Request $request)
     {
-        $request->validate([
-            'task_id' => 'required|exists:tasks,id',
-        ]);
+        // Validate the request
+    $request->validate([
+        'task_id' => 'required|exists:tasks,id',
+    ]);
 
-        $comments = Comment::where('task_id', $request->task_id)
-            ->with('user:id,name') // Assuming your User model has a 'name' field
-            ->get()
-            ->map(function ($comment) {
-                return [
-                    'user_id' => $comment->user->name,
-                    'comment_text' => $comment->comment_text,
-                ];
-            });
+    // Fetch comments with user names by joining with the users table
+    $comments = Comment::where('task_id', $request->task_id)
+        ->join('users', 'comments.user_id', '=', 'users.id') // Join with the users table
+        ->select('comments.comment_text', 'users.name as user_name') // Select the comment and user name
+        ->orderBy('comments.created_at', 'asc') // Order comments from oldest to newest
+        ->get();
 
-        return response()->json([
-            'success' => true,
-            'comments' => $comments,
-        ]);
+    // Return the response as JSON
+    return response()->json([
+        'success' => true,
+        'comments' => $comments,
+    ]);
     }
 
 

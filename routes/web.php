@@ -28,7 +28,7 @@ Route::post('/tasks/{id}/duplicate', [TaskController::class, 'duplicate'])->name
 Route::delete('/tasks/{id}', [TaskController::class, 'destroy'])->name('tasks.destroy');
 Route::post('/update-task-status', [TaskController::class, 'updateStatus'])->name('task.updateStatus');
 
-Route::post('/get-comments', [TaskController::class, 'getComments'])->name('get.comments');
+Route::post('/get-comments/{task_id}', [TaskController::class, 'getComments'])->name('get.comments');
 Route::post('/save-comment', [TaskController::class, 'saveComment'])->name('save.comment');//save comment
 
 require __DIR__.'/auth.php';

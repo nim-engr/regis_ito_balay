@@ -17,7 +17,7 @@
                             <span class="dropdown-toggle align-items-center d-flex" id="dropdownMenuButton04" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 Sort By:
                             </span>
-                            <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton04" style="">
+                            <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton04">
                                 <a class="dropdown-item" href="#">Status</a>
                                 <a class="dropdown-item" href="#">Task Name</a>
                                 <a class="dropdown-item" href="#">Priority</a>
@@ -31,7 +31,7 @@
                             <span class="dropdown-toggle align-items-center d-flex" id="dropdownMenuButton05" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 Group By: Status
                             </span>
-                            <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton05" style="">
+                            <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton05" >
                                 <a class="dropdown-item" href="#">
                                     <svg width="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="me-2 icon-20">
                                         <path fill-rule="evenodd" clip-rule="evenodd" d="M16.3345 2.75024H7.66549C4.64449 2.75024 2.75049 4.88924 2.75049 7.91624V16.0842C2.75049 19.1112 4.63549 21.2502 7.66549 21.2502H16.3335C19.3645 21.2502 21.2505 19.1112 21.2505 16.0842V7.91624C21.2505 4.88924 19.3645 2.75024 16.3345 2.75024Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
